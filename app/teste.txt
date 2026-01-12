@@ -1,0 +1,712 @@
+"use client"
+
+import React, { useState } from "react"
+import Image from "next/image"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  // Ícones Gerais
+  ArrowRight,
+  Menu,
+  X,
+  Phone,
+  Mail,
+  Instagram,
+  Facebook,
+  Linkedin,
+  MapPin,
+  Clock,
+  CheckCircle2,
+  DollarSign,
+  Leaf,
+  Target,
+  ShieldCheck,
+  Zap,
+  LayoutDashboard,
+  FileDown,
+  CalendarDays,
+  Users,
+  Filter,
+  Download,
+  Bell,
+  Search,
+  Plus,
+  Edit,
+  Trash2,
+  ChevronRight,
+  Map,
+  Shield,
+  Paperclip,
+  Sparkles,
+  Bot,
+  Droplets,
+  TrendingUp,
+  Cloud
+} from "lucide-react"
+
+// ==============================================================================
+// 1. UTILITÁRIOS (ANIMAÇÕES E LAYOUT)
+// ==============================================================================
+
+function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) {
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function Container({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+  return <div className={`mx-auto w-full max-w-7xl px-6 ${className}`}>{children}</div>
+}
+
+function Section({ id, children, className = "" }: { id?: string, children: React.ReactNode, className?: string }) {
+  return (
+    <section id={id} className={`py-20 md:py-32 relative overflow-hidden ${className}`}>
+      {children}
+    </section>
+  )
+}
+
+function AnimatedImageFrame({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+  return (
+    <motion.div
+      className={`group relative overflow-hidden rounded-3xl ${className}`}
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
+    >
+      <div className="h-full w-full transition-transform duration-700 will-change-transform group-hover:scale-[1.01]">
+        {children}
+      </div>
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 rounded-3xl" />
+    </motion.div>
+  )
+}
+
+// ==============================================================================
+// 2. VIEW: IJA DRONES (O SOFTWARE/SaaS) - DETALHADO (MOCKUP COMPLETO)
+// ==============================================================================
+
+function IjaDronesView({ onBack }: { onBack: () => void }) {
+  const [activeTab, setActiveTab] = useState("dashboard")
+
+  const SidebarItem = ({ id, icon: Icon, label }: any) => (
+    <button 
+      onClick={() => setActiveTab(id)}
+      className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg font-medium text-xs md:text-sm transition-all ${
+        activeTab === id ? "bg-sky-50 border border-sky-100 text-sky-700" : "text-slate-500 hover:bg-slate-50"
+      }`}
+    >
+      <Icon size={16} /><span className="hidden md:block">{label}</span>
+    </button>
+  )
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <Container>
+            <div className="flex items-center justify-between h-16">
+                <div className="flex items-center gap-2 cursor-pointer group" onClick={onBack}>
+                    <div className="p-1 rounded-full bg-slate-100 group-hover:bg-slate-200 transition-colors">
+                        <ArrowRight className="rotate-180 text-slate-600" size={18}/> 
+                    </div>
+                    <span className="font-bold text-slate-700 hover:text-blue-600 transition-colors">Voltar para AgroAzul</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium text-slate-500">IJA System v2.0</span>
+                    <button className="bg-slate-900 text-white px-4 py-1.5 rounded-full text-sm font-bold">Entrar</button>
+                </div>
+            </div>
+        </Container>
+      </nav>
+
+      <div className="pt-16 pb-10 text-center px-4">
+         <Reveal><div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-bold mb-4 border border-sky-200"><Zap size={12}/> Tecnologia SaaS</div></Reveal>
+         <Reveal delay={0.1}><h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">O sistema operacional da sua frota.</h1></Reveal>
+         <Reveal delay={0.2}><p className="text-slate-600 max-w-2xl mx-auto">Interface administrativa para gestão de pilotos, vistorias de dengue e pulverização agrícola.</p></Reveal>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.div initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} className="rounded-2xl shadow-2xl border border-slate-200 bg-white overflow-hidden">
+            <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center gap-4">
+                <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400"/><div className="w-3 h-3 rounded-full bg-amber-400"/><div className="w-3 h-3 rounded-full bg-emerald-400"/></div>
+                <div className="flex-1 bg-white border border-slate-200 h-6 rounded-md flex items-center justify-center text-[10px] text-slate-400 font-mono">app.ijasystem.com/{activeTab}</div>
+                <div className="w-10 flex justify-end text-slate-300"><Bell size={14} /></div>
+            </div>
+            <div className="flex h-[600px] bg-slate-50/30 text-left">
+                <div className="w-16 md:w-56 bg-white border-r border-slate-200 p-4 flex flex-col justify-between">
+                    <div>
+                        <div className="flex items-center gap-2 mb-8 text-slate-800 font-bold"><div className="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center text-white"><Zap size={16} fill="currentColor"/></div><span className="hidden md:inline">IJA System</span></div>
+                        <div className="space-y-1">
+                            <SidebarItem id="dashboard" icon={LayoutDashboard} label="Dashboard" />
+                            <SidebarItem id="relatorios" icon={FileDown} label="Relatórios" />
+                            <SidebarItem id="agenda" icon={CalendarDays} label="Agenda" />
+                            <SidebarItem id="pilotos" icon={Users} label="Pilotos" />
+                        </div>
+                    </div>
+                    <div className="hidden md:flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100"><div className="w-8 h-8 rounded-full bg-sky-100 border border-sky-200 flex items-center justify-center text-xs font-bold text-sky-700">PH</div><div className="text-xs"><div className="font-bold text-slate-700">Pedro H.</div><div className="text-slate-400">Admin</div></div></div>
+                </div>
+                <div className="flex-1 p-6 overflow-y-auto bg-slate-50/50 relative">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-slate-800 capitalize">{activeTab}</h2>
+                        <div className="flex gap-2">
+                            {activeTab === 'pilotos' ? (
+                                <button className="h-8 px-3 rounded-lg bg-sky-600 text-white text-xs flex items-center gap-1 font-medium shadow-sm hover:bg-sky-700 transition-colors"><Plus size={12}/> Novo Piloto</button>
+                            ) : (
+                                <button className="h-8 px-3 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-600 shadow-sm flex items-center gap-2"><Filter size={14}/> Filtros</button>
+                            )}
+                            {(activeTab === 'dashboard' || activeTab === 'relatorios' || activeTab === 'pilotos') && <button className="h-8 px-3 bg-sky-50 border border-sky-100 rounded-lg text-xs font-medium text-sky-600 shadow-sm flex items-center gap-2"><Download size={14}/> Exportar</button>}
+                        </div>
+                    </div>
+                    
+                    <div className="flex-1 min-h-0 overflow-y-auto pr-1 relative">
+                        {/* 1. DASHBOARD - PAINEL DE GESTÃO (FORMULÁRIO) */}
+                        {activeTab === 'dashboard' && (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4 h-full">
+                                <div className="flex justify-between items-center mb-1">
+                                    <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2"><Shield size={20} className="text-slate-700"/> Painel de Gestão</h2>
+                                    <button className="h-8 px-4 rounded-lg bg-sky-500 text-white text-xs font-bold flex items-center gap-1 hover:bg-sky-600 shadow-sm transition-colors"><FileDown size={14}/> Exportar Excel</button>
+                                </div>
+                                <div className="bg-white rounded-lg border border-slate-200 p-3 flex justify-between items-center shadow-sm cursor-pointer hover:bg-slate-50">
+                                    <div className="flex items-center gap-2 text-sm font-bold text-sky-600"><Filter size={16}/> Filtros de Busca</div>
+                                    <ChevronRight size={16} className="text-slate-400 rotate-90"/>
+                                </div>
+                                <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex flex-col md:flex-row gap-6">
+                                    <div className="flex-1 space-y-4">
+                                        <div>
+                                            <h3 className="text-base font-bold text-sky-700">UVIS Teste QA</h3>
+                                            <div className="flex gap-2 mt-2">
+                                                <span className="px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-bold rounded uppercase">Aprovado</span>
+                                                <span className="px-2 py-0.5 bg-slate-500 text-white text-[10px] font-bold rounded uppercase">Sul</span>
+                                            </div>
+                                        </div>
+                                        <div className="space-y-1 text-xs text-slate-600">
+                                            <div className="flex items-center gap-2"><CalendarDays size={14} className="text-sky-500"/> 08/01/2026 às 13:00</div>
+                                            <div className="flex items-center gap-2"><MapPin size={14} className="text-sky-500"/> Av. Paulista, 09 - Bela Vista</div>
+                                            <div className="pl-6 text-slate-400">CEP: 01310-930</div>
+                                        </div>
+                                        <div className="flex gap-2 pt-2">
+                                            <button className="flex items-center gap-1 px-3 py-1.5 bg-sky-500 text-white rounded text-xs font-bold hover:bg-sky-600 shadow-sm"><Edit size={12}/> Editar</button>
+                                            <button className="flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white rounded text-xs font-bold hover:bg-red-600 shadow-sm"><Trash2 size={12}/> Deletar</button>
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 space-y-3 border-l border-slate-100 pl-0 md:pl-6 text-xs">
+                                        <div className="relative"><input type="text" value="-23.55819, -46.65984" readOnly className="w-full h-9 pl-3 pr-8 rounded border border-slate-200 bg-slate-50 text-slate-700"/><div className="absolute right-2 top-2 text-red-400"><Map size={16}/></div></div>
+                                        <div className="grid grid-cols-2 gap-y-1"><span className="text-slate-500">Tipo:</span> <span className="font-bold text-slate-800">Culex</span><span className="text-slate-500">Foco:</span> <span className="font-bold text-slate-800">Imóvel Abandonado</span></div>
+                                    </div>
+                                    <div className="flex-1 space-y-3 border-l border-slate-100 pl-0 md:pl-6">
+                                        <div className="border border-slate-200 rounded-lg p-3 space-y-3">
+                                            <div><span className="text-xs text-slate-500 block mb-1">Status</span><div className="w-full h-8 px-3 rounded border border-slate-200 bg-white text-xs flex items-center justify-between"><div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"/> Aprovar</div></div></div>
+                                            <button className="w-full h-8 rounded bg-sky-500 text-white text-xs font-bold hover:bg-sky-600 shadow-sm">Salvar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* 2. RELATÓRIOS */}
+                        {activeTab === 'relatorios' && (
+                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-5 h-full">
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">TOTAL</div><div className="text-2xl font-bold text-slate-800">5</div></div>
+                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">APROVADAS</div><div className="text-2xl font-bold text-slate-800">1</div></div>
+                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">EM ANÁLISE</div><div className="text-2xl font-bold text-slate-800">1</div></div>
+                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">RECUSADAS</div><div className="text-2xl font-bold text-slate-800">0</div></div>
+                                </div>
+                                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex-1">
+                                    <table className="w-full text-left text-xs">
+                                        <thead className="bg-slate-50 border-b border-slate-100 text-slate-500"><tr><th className="px-4 py-3">ID</th><th className="px-4 py-3">Tipo</th><th className="px-4 py-3">Status</th></tr></thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            <tr><td className="px-4 py-3 text-slate-500">#RP-001</td><td className="px-4 py-3">Vistoria</td><td className="px-4 py-3"><span className="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full font-bold text-[9px]">Aprovado</span></td></tr>
+                                            <tr><td className="px-4 py-3 text-slate-500">#RP-002</td><td className="px-4 py-3">Mapeamento</td><td className="px-4 py-3"><span className="bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-bold text-[9px]">Análise</span></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* 3. AGENDA */}
+                        {activeTab === 'agenda' && (
+                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex-1 flex flex-col">
+                                <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+                                    <div className="flex gap-1"><button className="p-1 text-slate-500"><ChevronRight size={16} className="rotate-180"/></button><button className="p-1 text-slate-500"><ChevronRight size={16}/></button></div>
+                                    <h3 className="text-sm font-bold text-slate-800">Janeiro 2026</h3>
+                                    <button className="px-3 py-1 bg-slate-100 rounded text-xs font-bold text-slate-600">Hoje</button>
+                                </div>
+                                <div className="flex-1 bg-slate-50 grid grid-cols-7 gap-px">
+                                    {[...Array(35)].map((_, i) => (
+                                        <div key={i} className="bg-white p-1 min-h-[40px]">
+                                            <span className="text-[10px] text-slate-400 font-medium">{i > 2 && i < 34 ? i - 2 : ''}</span>
+                                            {i === 12 && <div className="mt-1 bg-sky-100 text-sky-700 text-[8px] font-bold px-1 rounded truncate">Vistoria Sul</div>}
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* 4. PILOTOS */}
+                        {activeTab === 'pilotos' && (
+                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex-1 flex flex-col">
+                                 <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center"><h3 className="text-sm font-bold text-slate-700">Total: 5</h3></div>
+                                 <div className="flex-1 overflow-auto">
+                                    <table className="w-full text-left text-xs">
+                                        <thead className="bg-slate-100 text-slate-600 font-bold uppercase text-[10px]"><tr><th className="px-4 py-3">Nome</th><th className="px-4 py-3">Região</th><th className="px-4 py-3 text-right">Ações</th></tr></thead>
+                                        <tbody className="divide-y divide-slate-50">
+                                            {[1,2,3,4,5].map((i) => (
+                                            <tr key={i}>
+                                                <td className="px-4 py-3 font-bold text-slate-700">Piloto {i}</td>
+                                                <td className="px-4 py-3"><span className="px-2 py-0.5 bg-slate-100 border border-slate-200 rounded text-[9px] font-bold text-slate-500">NORTE</span></td>
+                                                <td className="px-4 py-3 text-right"><button className="text-sky-600 font-bold hover:underline">Editar</button></td>
+                                            </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                 </div>
+                            </motion.div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+      </div>
+    </div>
+  )
+}
+
+// ==============================================================================
+// 3. VIEW: AGRO AZUL (HOME INSTITUCIONAL)
+// ==============================================================================
+// Baseada rigorosamente no seu design: Azul/Branco, Cards de Benefícios, Serviços e Formulário
+
+function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-white font-sans text-slate-900">
+      
+      {/* NAVBAR AGROAZUL */}
+      <motion.nav 
+        initial={{ y: -100 }} animate={{ y: 0 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100 h-20"
+      >
+        <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-2">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">AZ</div>
+                <span className="text-2xl font-bold text-slate-900 tracking-tight">Agro<span className="text-blue-600">Azul</span></span>
+            </div>
+
+            {/* Menu Desktop */}
+            <div className="hidden md:flex items-center gap-8">
+                <a href="#inicio" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Início</a>
+                <a href="#servicos" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Serviços</a>
+                <a href="#beneficios" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Benefícios</a>
+                <a href="#contato" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Contato</a>
+                
+                {/* BOTÃO IJA DRONES (Link para o Software) */}
+                <button 
+                    onClick={onNavigateToSystem}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-blue-600 text-blue-600 font-bold text-sm hover:bg-blue-50 transition-all"
+                >
+                    IJA Drones <ArrowRight size={14}/>
+                </button>
+
+                <button className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all">
+                    Solicitar Orçamento
+                </button>
+            </div>
+
+            {/* Mobile Toggle */}
+            <button className="md:hidden text-slate-600" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                {mobileMenuOpen ? <X/> : <Menu/>}
+            </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+            <div className="md:hidden bg-white border-b border-slate-100 p-4 space-y-4 shadow-lg absolute w-full">
+                <a href="#inicio" className="block font-medium text-slate-600 py-2">Início</a>
+                <a href="#servicos" className="block font-medium text-slate-600 py-2">Serviços</a>
+                <a href="#beneficios" className="block font-medium text-slate-600 py-2">Benefícios</a>
+                <button onClick={onNavigateToSystem} className="w-full text-left font-bold text-blue-600 py-2 flex items-center gap-2">IJA Drones <ArrowRight size={14}/></button>
+            </div>
+        )}
+      </motion.nav>
+
+      {/* HERO SECTION */}
+      <section id="inicio" className="pt-32 pb-20 lg:pt-40 lg:pb-32 bg-white overflow-hidden">
+         <Container>
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                {/* Texto Hero */}
+                <div className="flex-1 text-center lg:text-left z-10">
+                    <Reveal>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold mb-6 tracking-wide uppercase border border-blue-100">
+                            <Sparkles size={12}/> Serviços Profissionais de Pulverização
+                        </div>
+                    </Reveal>
+                    <Reveal delay={0.1}>
+                        <h1 className="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                            Pulverização com Drones <br/><span className="text-blue-600">Rápida e Eficiente</span>
+                        </h1>
+                    </Reveal>
+                    <Reveal delay={0.2}>
+                        <p className="text-lg text-slate-500 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                            Especialistas em pulverização agrícola e urbana com drones de última geração. Atendemos produtores rurais e órgãos públicos no combate à dengue.
+                        </p>
+                    </Reveal>
+                    <Reveal delay={0.3}>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button className="px-8 py-3.5 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                                Solicitar Orçamento <ArrowRight size={16}/>
+                            </button>
+                            <button className="px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-full font-bold hover:bg-slate-50 transition-all">
+                                Nossos Serviços
+                            </button>
+                        </div>
+                    </Reveal>
+                </div>
+                
+                {/* Imagem Hero */}
+                <div className="flex-1 w-full relative">
+                    <Reveal delay={0.4}>
+                        <div className="relative aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl bg-slate-100">
+                            {/* IMAGEM DO DRONE PULVERIZANDO (Substitua o src pela sua imagem real) */}
+                            <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
+                                <div className="text-center text-slate-400">
+                                    <Cloud size={64} className="mx-auto mb-2 opacity-50"/>
+                                    <span>Imagem do Drone em Ação</span>
+                                </div>
+                            </div>
+                            
+                            {/* Card Flutuante "Tecnologia Avançada" */}
+                            <div className="absolute bottom-6 left-6 bg-white p-4 rounded-xl shadow-lg border border-slate-100 flex items-center gap-4 max-w-xs">
+                                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
+                                    <Zap size={24}/>
+                                </div>
+                                <div>
+                                    <div className="font-bold text-slate-900 text-sm">Tecnologia Avançada</div>
+                                    <div className="text-xs text-slate-500">Drones de Última Geração</div>
+                                </div>
+                            </div>
+                        </div>
+                    </Reveal>
+                </div>
+            </div>
+         </Container>
+      </section>
+
+      {/* SERVIÇOS */}
+      <section id="servicos" className="py-20 bg-slate-50">
+         <Container>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+                <Reveal>
+                    <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase">Nossos Serviços</span>
+                </Reveal>
+                <Reveal delay={0.1}>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Soluções Profissionais para Cada Necessidade</h2>
+                </Reveal>
+                <Reveal delay={0.2}>
+                    <p className="text-slate-500">Atendemos produtores rurais e órgãos públicos com serviços especializados.</p>
+                </Reveal>
+            </div>
+
+            <div className="space-y-24">
+                {/* Serviço 1: Agro */}
+                <Reveal>
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="order-2 md:order-1">
+                            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+                                <Leaf size={24}/>
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-4">Pulverização Agrícola</h3>
+                            <p className="text-slate-600 leading-relaxed mb-6">
+                                Aplicação precisa de defensivos e fertilizantes em lavouras. Cobertura uniforme e economia de até 90% de água comparado aos métodos tradicionais.
+                            </p>
+                            <ul className="space-y-3 mb-8">
+                                <li className="flex items-center gap-3 text-slate-600 text-sm"><CheckCircle2 size={16} className="text-blue-600"/> Sem amassamento da cultura</li>
+                                <li className="flex items-center gap-3 text-slate-600 text-sm"><CheckCircle2 size={16} className="text-blue-600"/> Aplicação em áreas de difícil acesso</li>
+                                <li className="flex items-center gap-3 text-slate-600 text-sm"><CheckCircle2 size={16} className="text-blue-600"/> Redução de deriva</li>
+                            </ul>
+                            <button className="px-6 py-2.5 bg-blue-600 text-white rounded-full font-bold text-sm hover:bg-blue-700 transition-colors">
+                                Solicitar Orçamento
+                            </button>
+                        </div>
+                        <div className="order-1 md:order-2 h-80 bg-slate-200 rounded-3xl overflow-hidden relative shadow-lg">
+                             <div className="absolute inset-0 flex items-center justify-center text-slate-400">Imagem Lavoura</div>
+                        </div>
+                    </div>
+                </Reveal>
+
+                {/* Serviço 2: Dengue */}
+                <Reveal delay={0.2}>
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="h-80 bg-slate-200 rounded-3xl overflow-hidden relative shadow-lg">
+                             <div className="absolute inset-0 flex items-center justify-center text-slate-400">Imagem Mosquito/Urbana</div>
+                        </div>
+                        <div>
+                            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+                                <Target size={24}/>
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-4">Controle de Dengue</h3>
+                            <p className="text-slate-600 leading-relaxed mb-6">
+                                Pulverização urbana especializada no combate ao mosquito Aedes aegypti. Parceria com prefeituras e órgãos de saúde pública.
+                            </p>
+                            <ul className="space-y-3 mb-8">
+                                <li className="flex items-center gap-3 text-slate-600 text-sm"><ShieldCheck size={16} className="text-blue-600"/> Cobertura urbana total</li>
+                                <li className="flex items-center gap-3 text-slate-600 text-sm"><ShieldCheck size={16} className="text-blue-600"/> Segurança para a população</li>
+                                <li className="flex items-center gap-3 text-slate-600 text-sm"><ShieldCheck size={16} className="text-blue-600"/> Mapeamento de focos</li>
+                            </ul>
+                            <button className="px-6 py-2.5 bg-blue-600 text-white rounded-full font-bold text-sm hover:bg-blue-700 transition-colors">
+                                Solicitar Orçamento
+                            </button>
+                        </div>
+                    </div>
+                </Reveal>
+            </div>
+         </Container>
+      </section>
+
+      {/* BENEFÍCIOS (Cards Brancos com Sombra Suave) */}
+      <section id="beneficios" className="py-20 bg-white">
+         <Container>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+                <Reveal>
+                    <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase">Vantagens</span>
+                </Reveal>
+                <Reveal delay={0.1}>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Por Que Escolher a <span className="text-blue-600">Agro Azul?</span></h2>
+                </Reveal>
+                <Reveal delay={0.2}>
+                    <p className="text-slate-500">Benefícios comprovados que fazem a diferença no seu negócio.</p>
+                </Reveal>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                    { title: "Economia de Tempo", icon: Clock, desc: "Até 60x mais rápido que pulverização tradicional." },
+                    { title: "Redução de Custos", icon: DollarSign, desc: "Menos desperdício de insumos e mão de obra." },
+                    { title: "Sustentabilidade", icon: Leaf, desc: "Economia de até 90% de água nas aplicações." },
+                    { title: "Precisão Máxima", icon: Target, desc: "Aplicação uniforme em terrenos irregulares." },
+                    { title: "Maior Produtividade", icon: TrendingUp, desc: "Melhor aproveitamento dos defensivos." },
+                    { title: "Segurança", icon: Users, desc: "Menor exposição do trabalhador a agrotóxicos." },
+                    { title: "Equipe Certificada", icon: Shield, desc: "Pilotos habilitados pela ANAC." },
+                    { title: "Cobertura Regional", icon: MapPin, desc: "Atendimento em toda sua região." },
+                ].map((item, i) => (
+                    <Reveal key={i} delay={i * 0.05} className="h-full">
+                        <div className="h-full p-6 rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                                <item.icon size={20}/>
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                            <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                        </div>
+                    </Reveal>
+                ))}
+            </div>
+         </Container>
+      </section>
+
+      {/* CTA AZUL ESCURO (EQUIPE) */}
+      <section className="py-20 bg-blue-600 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-600"></div>
+          <div className="absolute right-0 top-0 h-full w-1/3 bg-blue-500/20 skew-x-12 translate-x-20"></div>
+          
+          <Container className="relative z-10 text-center">
+              <Reveal>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">Equipe Profissional e Certificada</h2>
+                  <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-10">
+                      Conte com especialistas experientes e equipamentos de última geração para garantir os melhores resultados.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <button className="px-8 py-3.5 bg-white text-blue-700 rounded-full font-bold hover:bg-blue-50 transition-colors">
+                          Agendar Visita Técnica
+                      </button>
+                      <button className="px-8 py-3.5 border-2 border-blue-400 text-white rounded-full font-bold hover:bg-blue-500 hover:border-blue-500 transition-colors">
+                          Falar com Especialista
+                      </button>
+                  </div>
+              </Reveal>
+          </Container>
+      </section>
+
+      {/* FORMULÁRIO DE CONTATO (BRANCO E AZUL) */}
+      <section id="contato" className="py-20 bg-white">
+          <Container>
+              <div className="grid lg:grid-cols-2 gap-16 items-start">
+                  <div>
+                      <Reveal>
+                          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold mb-4 border border-blue-100">
+                              <Mail size={12}/> Entre em Contato
+                          </div>
+                      </Reveal>
+                      <Reveal delay={0.1}>
+                          <h2 className="text-4xl font-bold text-slate-900 mb-4">Solicite um Orçamento <span className="text-blue-600">Sem Compromisso</span></h2>
+                          <p className="text-slate-500 mb-8">Nossa equipe está pronta para atender você e apresentar a melhor solução para suas necessidades.</p>
+                      </Reveal>
+                      
+                      <div className="space-y-6">
+                          <Reveal delay={0.2}>
+                              <div className="flex items-start gap-4">
+                                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 flex-shrink-0"><Mail size={20}/></div>
+                                  <div>
+                                      <h4 className="font-bold text-slate-900">Email</h4>
+                                      <p className="text-slate-500 text-sm">contato@agroazul.com.br</p>
+                                  </div>
+                              </div>
+                          </Reveal>
+                          <Reveal delay={0.3}>
+                              <div className="flex items-start gap-4">
+                                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 flex-shrink-0"><Phone size={20}/></div>
+                                  <div>
+                                      <h4 className="font-bold text-slate-900">WhatsApp</h4>
+                                      <p className="text-slate-500 text-sm">+55 (11) 98765-4321</p>
+                                  </div>
+                              </div>
+                          </Reveal>
+                          <Reveal delay={0.4}>
+                              <div className="flex items-start gap-4">
+                                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 flex-shrink-0"><MapPin size={20}/></div>
+                                  <div>
+                                      <h4 className="font-bold text-slate-900">Localização</h4>
+                                      <p className="text-slate-500 text-sm">São Paulo, Brasil</p>
+                                  </div>
+                              </div>
+                          </Reveal>
+                      </div>
+                  </div>
+
+                  <Reveal delay={0.2} className="bg-slate-50 rounded-3xl p-8 border border-slate-100 shadow-sm">
+                      <form className="space-y-4">
+                          <div>
+                              <label className="block text-xs font-bold text-slate-700 mb-1">Nome Completo</label>
+                              <input type="text" placeholder="Seu nome" className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"/>
+                          </div>
+                          <div>
+                              <label className="block text-xs font-bold text-slate-700 mb-1">Email</label>
+                              <input type="email" placeholder="seu@email.com" className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"/>
+                          </div>
+                          <div>
+                              <label className="block text-xs font-bold text-slate-700 mb-1">Telefone / WhatsApp</label>
+                              <input type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"/>
+                          </div>
+                          <div>
+                              <label className="block text-xs font-bold text-slate-700 mb-1">Serviço de Interesse</label>
+                              <select className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-600">
+                                  <option>Selecione uma opção</option>
+                                  <option>Pulverização Agrícola</option>
+                                  <option>Controle de Dengue</option>
+                                  <option>Mapeamento Aéreo</option>
+                              </select>
+                          </div>
+                          <div>
+                              <label className="block text-xs font-bold text-slate-700 mb-1">Mensagem</label>
+                              <textarea rows={4} placeholder="Conte-nos sobre sua necessidade..." className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"></textarea>
+                          </div>
+                          <button className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20">
+                              Enviar Mensagem
+                          </button>
+                      </form>
+                  </Reveal>
+              </div>
+          </Container>
+      </section>
+
+      {/* FOOTER ESCURO */}
+      <footer className="bg-[#0f172a] text-slate-300 pt-20 pb-10">
+        <Container>
+            <div className="grid md:grid-cols-4 gap-12 mb-16">
+                <div className="col-span-1 md:col-span-1">
+                    <div className="flex items-center gap-2 mb-6">
+                        <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">AZ</div>
+                        <span className="text-2xl font-bold text-white tracking-tight">Agro<span className="text-blue-500">Azul</span></span>
+                    </div>
+                    <p className="text-sm text-slate-400 mb-6">Especialistas em pulverização com drones para agricultura e controle urbano.</p>
+                    <div className="flex gap-4">
+                        <a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"><Facebook size={18}/></a>
+                        <a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"><Instagram size={18}/></a>
+                        <a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"><Linkedin size={18}/></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 className="font-bold text-white mb-6">Serviços</h4>
+                    <ul className="space-y-3 text-sm">
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Pulverização Agrícola</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Controle de Dengue</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Consultoria Técnica</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Orçamentos</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 className="font-bold text-white mb-6">Empresa</h4>
+                    <ul className="space-y-3 text-sm">
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Sobre Nós</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Equipe</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Certificações</a></li>
+                        <li><button onClick={onNavigateToSystem} className="hover:text-blue-400 transition-colors flex items-center gap-1">IJA Drones <ArrowRight size={12}/></button></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 className="font-bold text-white mb-6">Suporte</h4>
+                    <ul className="space-y-3 text-sm">
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">FAQ</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Área de Cobertura</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Contato</a></li>
+                        <li><a href="#" className="hover:text-blue-400 transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 Agro Azul. Todos os direitos reservados.</p>
+                <div className="flex gap-6">
+                    <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
+                    <a href="#" className="hover:text-white transition-colors">Termos de Serviço</a>
+                </div>
+            </div>
+        </Container>
+      </footer>
+    </div>
+  )
+}
+
+// ==============================================================================
+// 4. COMPONENTE PRINCIPAL (CONTROLADOR)
+// ==============================================================================
+
+export default function Page() {
+  const [currentView, setCurrentView] = useState<'home' | 'system'>('home')
+
+  return (
+    <AnimatePresence mode="wait">
+      {currentView === 'home' ? (
+        <motion.div 
+            key="home"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        >
+            <AgroAzulView onNavigateToSystem={() => setCurrentView('system')} />
+        </motion.div>
+      ) : (
+        <motion.div 
+            key="system"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        >
+            <IjaDronesView onBack={() => setCurrentView('home')} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}

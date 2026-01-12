@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion"
 
 // --- COMPONENTE 1: REVEAL (Para textos, títulos e blocos) ---
 // Faz o elemento aparecer de baixo para cima suavemente ao rolar
