@@ -478,13 +478,19 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
       {/* NAVBAR */}
       <motion.nav 
         initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100 h-20"
+        className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100 h-30"
       >
         <Container>
-            <div className="flex items-center justify-between h-20">
-                <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">AZ</div>
-                    <span className="text-2xl font-bold text-slate-900 tracking-tight">Agro<span className="text-blue-600">Azul</span></span>
+            <div className="flex items-center justify-between h-30">
+                {/* Substitua o trecho antigo por este: */}
+                <div className="relative w-60 h-24">
+                    <a href="#"> <Image 
+                        src="/images/logo-agro-azul.png" // Coloque o nome exato do seu arquivo que está na pasta public
+                        alt="Logo AgroAzul"
+                        fill
+                        className="object-contain object-left" // Garante que a logo não distorça e alinhe à esquerda
+                        />
+                    </a>
                 </div>
                 <div className="hidden md:flex items-center gap-8">
                     <a href="#inicio" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Início</a>
