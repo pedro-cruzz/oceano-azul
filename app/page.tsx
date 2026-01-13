@@ -4,9 +4,10 @@ import React, { useState } from "react"
 import Image from "next/image"
 // ADICIONADO: Hooks para a física do drone
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { useForm, ValidationError } from '@formspree/react';
 import {
   // Ícones
-  ArrowRight, Menu, X, Phone, Mail, Instagram, Facebook, Linkedin,
+  ArrowRight, Menu, X, Phone, Mail, Facebook, Instagram, Linkedin,
   LayoutDashboard, FileDown, CalendarDays, Users, Bell, Search, Filter,
   Plus, Edit, Trash2, MapPin, Map, Shield, Zap, Sparkles, BarChart3,
   Bot, ShieldCheck, Cloud, Smartphone, Clock, Leaf, Droplets, Timer,
@@ -140,6 +141,7 @@ function SolutionBlock({ kicker, title, desc, bullets, reverse, imageSrc }: { ki
 function IjaDronesView({ onBack }: { onBack: () => void }) {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [state, handleSubmit] = useForm("mojjqbek");
 
   const SidebarItem = ({ id, icon: Icon, label }: any) => (
     <button 
@@ -155,7 +157,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
       
-      {/* NAVBAR IGUAL AGROAZUL (BRANCO) */}
+      {/* NAVBAR IGUAL OCEANO AZUL (BRANCO) */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100 h-20">
         <Container>
             <div className="flex items-center justify-between h-20">
@@ -445,7 +447,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
             <div className="grid md:grid-cols-4 gap-12 mb-16">
                 <div><div className="flex items-center gap-2 mb-6"><div className="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">IJ</div><span className="text-2xl font-bold text-white tracking-tight">IJA<span className="text-sky-500">System</span></span></div><p className="text-sm text-slate-400 mb-6">Soluções tecnológicas avançadas para o mercado de drones e aviação agrícola.</p><div className="flex gap-4"><a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-sky-600 transition-colors"><Facebook size={18}/></a><a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-sky-600 transition-colors"><Instagram size={18}/></a><a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-sky-600 transition-colors"><Linkedin size={18}/></a></div></div>
                 <div><h4 className="font-bold text-white mb-6">Produto</h4><ul className="space-y-3 text-sm"><li><a href="#" className="hover:text-sky-400 transition-colors">Funcionalidades</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Planos e Preços</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Para Pilotos</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Para Empresas</a></li></ul></div>
-                <div><h4 className="font-bold text-white mb-6">Empresa</h4><ul className="space-y-3 text-sm"><li><a href="#" className="hover:text-sky-400 transition-colors">Sobre Nós</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Blog</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Carreiras</a></li><li><button onClick={onBack} className="hover:text-sky-400 transition-colors flex items-center gap-1">Voltar para AgroAzul <ArrowRight size={12}/></button></li></ul></div>
+                <div><h4 className="font-bold text-white mb-6">Empresa</h4><ul className="space-y-3 text-sm"><li><a href="#" className="hover:text-sky-400 transition-colors">Sobre Nós</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Blog</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Carreiras</a></li><li><button onClick={onBack} className="hover:text-sky-400 transition-colors flex items-center gap-1">Voltar para Oceano Azul <ArrowRight size={12}/></button></li></ul></div>
                 <div><h4 className="font-bold text-white mb-6">Suporte</h4><ul className="space-y-3 text-sm"><li><a href="#" className="hover:text-sky-400 transition-colors">Central de Ajuda</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Documentação API</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Status do Sistema</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Contato</a></li></ul></div>
             </div>
             <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
@@ -459,12 +461,13 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
 }
 
 // ==============================================================================
-// 3. VIEW: AGRO AZUL (HOME INSTITUCIONAL) - HERO INTERATIVO (DRONE)
+// 3. VIEW: OCEANO AZUL (HOME INSTITUCIONAL) - HERO INTERATIVO (DRONE)
 // ==============================================================================
 
-function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }) {
+function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [state, handleSubmit] = useForm("mojjqbek");
 
   // Lógica de Física do Drone
   const x = useMotionValue(0)
@@ -501,7 +504,7 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
                 <div className="relative w-60 h-24">
                     <a href="#"> <Image 
                         src="/images/oceano-azul-logo-sem-fundo.png" // Coloque o nome exato do seu arquivo que está na pasta public
-                        alt="Logo AgroAzul"
+                        alt="Logo oeceano azul"
                         fill
                         className="object-contain object-left" // Garante que a logo não distorça e alinhe à esquerda
                         />
@@ -546,7 +549,7 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
                 <div className="flex-1 text-center lg:text-left z-10">
                     <Reveal>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold mb-6 tracking-wide uppercase border border-blue-100">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold mb-6 tracking-wide uppercase border border-blue-100 h-7">
                             <Sparkles size={12}/> Serviços Profissionais de Pulverização
                         </div>
                     </Reveal>
@@ -690,10 +693,10 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
          <Container>
             <div className="text-center max-w-3xl mx-auto mb-16">
                 <Reveal>
-                    <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase">Nossos Serviços</span>
+                    <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase h-7">Nossos Serviços</span>
                 </Reveal>
                 <Reveal delay={0.1}>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Soluções Profissionais para Cada Necessidade</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Soluções profissionais <span className="text-blue-600">para cada necessidade</span></h2>
                 </Reveal>
                 <Reveal delay={0.2}>
                     <p className="text-slate-500">Atendemos produtores rurais e órgãos públicos com serviços especializados.</p>
@@ -774,10 +777,10 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
          <Container>
             <div className="text-center max-w-3xl mx-auto mb-16">
                 <Reveal>
-                    <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase">Vantagens</span>
+                    <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase h-7">Vantagens</span>
                 </Reveal>
                 <Reveal delay={0.1}>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Por Que Escolher a <span className="text-blue-600">Agro Azul?</span></h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Por Que Escolher a <span className="text-blue-600">Oceano Azul?</span></h2>
                 </Reveal>
                 <Reveal delay={0.2}>
                     <p className="text-slate-500">Benefícios comprovados que fazem a diferença no seu negócio.</p>
@@ -827,7 +830,7 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/images/equipe-bg.png" 
-                        alt="Equipe Profissional Agro Azul"
+                        alt="Equipe Profissional Oceano Azul"
                         fill
                         className="object-cover opacity-70 mix-blend-overlay"
                     />
@@ -890,7 +893,7 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
                                   </div>
                                   <div>
                                       <h4 className="font-bold text-slate-900 text-lg">Email</h4>
-                                      <p className="text-slate-500 mt-1">contato@agroazul.com.br</p>
+                                      <p className="text-slate-500 mt-1">contato@oceanoazul.com.br</p>
                                   </div>
                               </div>
                           </Reveal>
@@ -919,103 +922,209 @@ function AgroAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }
                       </div>
                   </div>
 
-                  {/* DIREITA: Começa na coluna 8 (Pula 6 e 7) e ocupa 5 colunas */}
-                  {/* bg-slate-50 para destacar do fundo branco, igual Imagem 1 */}
+                  {/* BLOCO REVEAL COMPLETO COM FORMSPREE */}
                   <Reveal delay={0.2} className="lg:col-span-5 lg:col-start-8 w-full bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50">
-                      <form className="space-y-5 w-full">
-                          <div>
-                              <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Nome Completo</label>
-                              <input type="text" placeholder="Seu nome" className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"/>
-                          </div>
-                          
-                          <div>
-                              <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Email</label>
-                              <input type="email" placeholder="seu@email.com" className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"/>
-                          </div>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                  <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Telefone</label>
-                                  <input type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"/>
+                      
+                      {/* ESTADO 1: MENSAGEM DE SUCESSO (Aparece se state.succeeded for true) */}
+                      {state.succeeded ? (
+                          <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center animate-fade-in">
+                              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6 shadow-sm">
+                                  {/* Ícone de Check */}
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                               </div>
+                              <h3 className="text-2xl font-bold text-slate-800 mb-2">Mensagem Enviada!</h3>
+                              <p className="text-slate-500 max-w-xs mx-auto mb-8">
+                                  Obrigado pelo contato. Nossa equipe analisará sua solicitação e responderá em breve.
+                              </p>
+                              <button 
+                                  onClick={() => window.location.reload()} 
+                                  className="text-blue-600 font-bold hover:text-blue-700 hover:underline text-sm transition-colors"
+                              >
+                                  Enviar outra mensagem
+                              </button>
+                          </div>
+                      ) : (
+                          
+                          /* ESTADO 2: O FORMULÁRIO DE CONTATO */
+                          <form onSubmit={handleSubmit} className="space-y-5 w-full">
+                              
+                              {/* Campo: Nome */}
                               <div>
-                                  <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Interesse</label>
-                                  <select className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all text-slate-600 cursor-pointer">
-                                      <option>Selecione...</option>
-                                      <option>Pulverização Agrícola</option>
-                                      <option>Controle de Dengue</option>
-                                      <option>Mapeamento Aéreo</option>
-                                  </select>
+                                  <label htmlFor="name" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Nome Completo</label>
+                                  <input 
+                                      id="name"
+                                      type="text" 
+                                      name="name" 
+                                      required
+                                      placeholder="Seu nome" 
+                                      className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"
+                                  />
+                                  <ValidationError prefix="Nome" field="name" errors={state.errors} className="text-red-500 text-xs mt-1" />
                               </div>
-                          </div>
-                          
-                          <div>
-                              <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Mensagem</label>
-                              <textarea rows={4} placeholder="Conte-nos sobre sua necessidade..." className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400 resize-none"></textarea>
-                          </div>
-                          
-                          <button className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/25 active:scale-[0.98] mt-2">
-                              Enviar Mensagem
-                          </button>
-                      </form>
+                              
+                              {/* Campo: Email */}
+                              <div>
+                                  <label htmlFor="email" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Email</label>
+                                  <input 
+                                      id="email"
+                                      type="email" 
+                                      name="email" 
+                                      required
+                                      placeholder="seu@email.com" 
+                                      className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"
+                                  />
+                                  <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-xs mt-1" />
+                              </div>
+                              
+                              {/* Grid: Telefone e Interesse */}
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div>
+                                      <label htmlFor="phone" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Telefone</label>
+                                      <input 
+                                          id="phone"
+                                          type="tel" 
+                                          name="phone" 
+                                          placeholder="(00) 00000-0000" 
+                                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"
+                                      />
+                                  </div>
+                                  <div>
+                                      <label htmlFor="interest" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Interesse</label>
+                                      <select 
+                                          id="interest"
+                                          name="interest" 
+                                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all text-slate-600 cursor-pointer"
+                                      >
+                                          <option value="">Selecione...</option>
+                                          <option value="Pulverização Agrícola">Pulverização Agrícola</option>
+                                          <option value="Controle de Dengue">Controle de Dengue</option>
+                                          <option value="Mapeamento Aéreo">Mapeamento Aéreo</option>
+                                          <option value="Outros">Outros</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              
+                              {/* Campo: Mensagem */}
+                              <div>
+                                  <label htmlFor="message" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Mensagem</label>
+                                  <textarea 
+                                      id="message"
+                                      name="message" 
+                                      required
+                                      rows={4} 
+                                      placeholder="Conte-nos sobre sua necessidade..." 
+                                      className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400 resize-none"
+                                  ></textarea>
+                                  <ValidationError prefix="Mensagem" field="message" errors={state.errors} className="text-red-500 text-xs mt-1" />
+                              </div>
+                              
+                              {/* Botão de Enviar com Loading */}
+                              <button 
+                                  type="submit" 
+                                  disabled={state.submitting}
+                                  className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/25 active:scale-[0.98] mt-2 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                              >
+                                  {state.submitting ? (
+                                      <>
+                                          <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                          </svg>
+                                          <span>Enviando...</span>
+                                      </>
+                                  ) : (
+                                      "Enviar Mensagem"
+                                  )}
+                              </button>
+                          </form>
+                      )}
                   </Reveal>
                   
               </div>
           </Container>
       </section>
-      {/* FOOTER */}
-      <footer className="bg-[#0f172a] text-slate-300 pt-20 pb-10">
+
+{/* FOOTER COMPACTO E VISUALMENTE IDÊNTICO À REFERÊNCIA */}
+      <footer className="bg-[#0f172a] text-slate-300 pt-12 pb-8 border-t border-slate-800">
         <Container>
-            <div className="grid md:grid-cols-4 gap-12 mb-16">
-                <div className="col-span-1 md:col-span-1">
-                    <div className="flex items-center gap-2 mb-6">
-                        <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">AZ</div>
-                        <span className="text-2xl font-bold text-white tracking-tight">Agro<span className="text-blue-500">Azul</span></span>
+            {/* Grid ajustado: gap-8 para ficar mais próximo, mb-12 para reduzir altura total */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-12 items-start">
+
+                {/* COLUNA 1: MARCA, TEXTO E REDES SOCIAIS (Ocupa 4 colunas) */}
+                <div className="lg:col-span-4 flex flex-col items-start">
+                    
+                    {/* LOGO: Tamanho equilibrado para não esticar o footer */}
+                    <div className="relative w-auto h-16 mb-5">
+                         <img
+                            src="/images/oceano-azul-logo-sem-fundo.png"
+                            alt="Oceano Azul"
+                            className="w-full h-full object-contain object-left"
+                         />
                     </div>
-                    <p className="text-sm text-slate-400 mb-6">Especialistas em pulverização com drones para agricultura e controle urbano.</p>
-                    <div className="flex gap-4">
-                        <a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"><Facebook size={18}/></a>
-                        <a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"><Instagram size={18}/></a>
-                        <a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"><Linkedin size={18}/></a>
+
+                    <p className="text-sm text-slate-400 mb-6 leading-relaxed max-w-sm">
+                        Especialistas em pulverização com drones para agricultura e controle urbano. Tecnologia e precisão a seu serviço.
+                    </p>
+                    
+                    {/* REDES SOCIAIS - AZUL VIBRANTE (Igual à foto de referência) */}
+                    <div className="flex gap-3">
+                        <a href="https://www.instagram.com/oceanoazul.drones?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="blank_" className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition-all duration-300 shadow-lg shadow-blue-900/20">
+                            <Instagram size={18}/>
+                        </a>
+                        <a href="https://www.linkedin.com/company/agroazul/" target="blank_" className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition-all duration-300 shadow-lg shadow-blue-900/20">
+                            <Linkedin size={18}/>
+                        </a>
                     </div>
                 </div>
-                
-                <div>
-                    <h4 className="font-bold text-white mb-6">Serviços</h4>
-                    <ul className="space-y-3 text-sm">
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Pulverização Agrícola</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Controle de Dengue</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Consultoria Técnica</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Orçamentos</a></li>
+
+                {/* ESPAÇO VAZIO (2 colunas) para separar a logo dos links */}
+                <div className="hidden lg:block lg:col-span-2"></div>
+
+                {/* COLUNA 2: SERVIÇOS */}
+                <div className="lg:col-span-2">
+                    <h4 className="font-bold text-white mb-5 text-base">Serviços</h4>
+                    <ul className="space-y-3 text-sm font-medium text-slate-400">
+                        <li><a href="#servicos" className="hover:text-white transition-colors block">Pulverização Agrícola</a></li>
+                        <li><a href="#servicos" className="hover:text-white transition-colors block">Controle de Dengue</a></li>
+                        <li><a href="#contato" className="hover:text-white transition-colors block">Consultoria Técnica</a></li>
+                        <li><a href="#contato" className="hover:text-white transition-colors block">Orçamentos</a></li>
                     </ul>
                 </div>
 
-                <div>
-                    <h4 className="font-bold text-white mb-6">Empresa</h4>
-                    <ul className="space-y-3 text-sm">
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Sobre Nós</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Equipe</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Certificações</a></li>
-                        <li><button onClick={onNavigateToSystem} className="hover:text-blue-400 transition-colors flex items-center gap-1">IJA Drones <ArrowRight size={12}/></button></li>
+                {/* COLUNA 3: EMPRESA */}
+                <div className="lg:col-span-2">
+                    <h4 className="font-bold text-white mb-5 text-base">Empresa</h4>
+                    <ul className="space-y-3 text-sm font-medium text-slate-400">
+                        <li><a href="#" className="hover:text-white transition-colors block">Sobre Nós</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Equipe</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Certificações</a></li>
+                        <li>
+                            <button onClick={onNavigateToSystem} className="hover:text-white transition-colors flex items-center gap-1 group">
+                                IJA Drones <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform"/>
+                            </button>
+                        </li>
                     </ul>
                 </div>
 
-                <div>
-                    <h4 className="font-bold text-white mb-6">Suporte</h4>
-                    <ul className="space-y-3 text-sm">
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">FAQ</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Área de Cobertura</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Contato</a></li>
-                        <li><a href="#" className="hover:text-blue-400 transition-colors">Blog</a></li>
+                {/* COLUNA 4: SUPORTE */}
+                <div className="lg:col-span-2">
+                    <h4 className="font-bold text-white mb-5 text-base">Suporte</h4>
+                    <ul className="space-y-3 text-sm font-medium text-slate-400">
+                        <li><a href="#" className="hover:text-white transition-colors block">FAQ</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Área de Cobertura</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Contato</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Blog</a></li>
                     </ul>
                 </div>
             </div>
-            
+
+            {/* BARRA INFERIOR (COPYRIGHT) */}
             <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-                <p>&copy; 2026 Agro Azul. Todos os direitos reservados.</p>
-                <div className="flex gap-6">
+                <p>&copy; 2026 Oceano Azul. Todos os direitos reservados.</p>
+                <div className="flex gap-6 font-medium">
                     <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
-                    <a href="#" className="hover:text-white transition-colors">Termos de Serviço</a>
+                    <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
+                    <a href="#" className="hover:text-white transition-colors">Cookies</a>
                 </div>
             </div>
         </Container>
@@ -1038,7 +1147,7 @@ export default function Page() {
             key="home"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         >
-            <AgroAzulView onNavigateToSystem={() => setCurrentView('system')} />
+            <OceanoAzulView onNavigateToSystem={() => setCurrentView('system')} />
         </motion.div>
       ) : (
         <motion.div 
