@@ -14,7 +14,6 @@ import {
 } from "lucide-react"
 
 // IMPORTAÇÃO DO SEU LOADING SEPARADO
-// Certifique-se de que o arquivo Preloader.tsx está na mesma pasta
 import Preloader from "./preloader"; 
 
 // ==============================================================================
@@ -143,7 +142,8 @@ function SolutionBlock({ kicker, title, desc, bullets, reverse, imageSrc }: { ki
 function IjaDronesView({ onBack }: { onBack: () => void }) {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  // REMOVIDO: const [state, handleSubmit] = useForm("meeeqdzk"); -> Não é usado aqui e causava erro
+  // ATIVADO: Agora usamos o formulário nesta view também
+  const [state, handleSubmit] = useForm("meeeqdzk");
 
   const SidebarItem = ({ id, icon: Icon, label }: any) => (
     <button 
@@ -159,27 +159,56 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
       
-      {/* NAVBAR IGUAL OCEANO AZUL (BRANCO) */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100 h-20">
+      {/* NAVBAR ESTILO OCEANO AZUL (Adaptada para IJA) */}
+      <motion.nav 
+        initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.6 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100 h-30"
+      >
         <Container>
-            <div className="flex items-center justify-between h-20">
-                <div className="flex items-center gap-2 cursor-pointer" onClick={onBack}>
-                    <div className="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center text-sky-600 hover:bg-sky-200 transition-colors">
-                        <ArrowRight className="rotate-180" size={18}/>
-                    </div>
-                    <span className="font-bold text-slate-700 hover:text-sky-600 transition-colors">Voltar para AgroAzul</span>
+            <div className="flex items-center justify-between h-30">
+                <div className="relative w-60 h-24">
+                    <a href="#" onClick={onBack}> 
+                      <Image 
+                        src="/images/oceano-azul-logo-sem-fundo.png" 
+                        alt="Logo oceano azul"
+                        fill
+                        className="object-contain object-left"
+                        />
+                    </a>
                 </div>
-                
                 <div className="hidden md:flex items-center gap-8">
-                    <span className="text-sm font-medium text-slate-500">IJA Drones</span>
+                    {/* Links adaptados ou mantidos genéricos */}
+                    <a href="#" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Recursos</a>
+                    <a href="#" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Soluções</a>
+                    <a href="#contato-ija" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Contato</a>
+                    
+                    {/* Botão de Voltar (Contextual) */}
+                    <button 
+                        onClick={onBack}
+                        className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all"
+                    >
+                        <ArrowRight className="rotate-180" size={14}/> Voltar para Oceano Azul
+                    </button>
+
                     <button className="bg-sky-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-sky-600/20 hover:bg-sky-700 transition-all">
                         Acessar Sistema
                     </button>
                 </div>
-                <button className="md:hidden text-slate-600" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}><Menu/></button>
+
+                <button className="md:hidden text-slate-600" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                    {mobileMenuOpen ? <X/> : <Menu/>}
+                </button>
             </div>
+            
+            {mobileMenuOpen && (
+                <div className="md:hidden bg-white border-t border-slate-100 py-4 space-y-4">
+                    <a href="#" className="block font-medium text-slate-600">Recursos</a>
+                    <a href="#" className="block font-medium text-slate-600">Soluções</a>
+                    <button onClick={onBack} className="w-full text-left font-bold text-slate-600 py-2 flex items-center gap-2"><ArrowRight className="rotate-180" size={14}/> Voltar</button>
+                </div>
+            )}
         </Container>
-      </nav>
+      </motion.nav>
 
       {/* HERO SECTION IJA DRONES (COM FOTO FLUTUANTE) */}
       <section className="pt-32 pb-16 lg:pt-48 lg:pb-32 bg-white overflow-hidden">
@@ -224,14 +253,10 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} 
                             className="relative w-full h-full"
                         >
-                            {/* Removi o bg-slate-100 para não ficar um quadrado cinza se a imagem falhar */}
                             <div className="relative w-full h-full rounded-3xl overflow-visible flex items-center justify-center">
-                                
-                                {/* TENTATIVA 1: Usando tag img normal para testar o caminho */}
-                                {/* Certifique-se que o arquivo está em: public/images/drone.png */}
                                 <img 
                                     src="/images/drone.png" 
-                                    alt="Drone IJA drones"
+                                    alt="Drone IJA System"
                                     className="w-full h-full object-contain drop-shadow-2xl z-10"
                                 />
 
@@ -265,7 +290,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
             <div className="flex h-[700px] bg-slate-50/30 text-left">
                 <div className="w-16 md:w-56 bg-white border-r border-slate-200 p-4 flex flex-col justify-between">
                     <div>
-                        <div className="flex items-center gap-2 mb-8 text-slate-800 font-bold"><div className="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center text-white"><Zap size={16} fill="currentColor"/></div><span className="hidden md:inline">IJA Drones</span></div>
+                        <div className="flex items-center gap-2 mb-8 text-slate-800 font-bold"><div className="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center text-white"><Zap size={16} fill="currentColor"/></div><span className="hidden md:inline">IJA System</span></div>
                         <div className="space-y-1">
                             <SidebarItem id="dashboard" icon={LayoutDashboard} label="Dashboard" />
                             <SidebarItem id="relatorios" icon={FileDown} label="Relatórios" />
@@ -411,32 +436,230 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
         </Container>
       </Section>
 
-
-      <Section className="pb-10">
-        <Reveal width="100%">
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 px-6 py-20 text-center shadow-2xl mx-6">
-              <div className="relative z-10 max-w-3xl mx-auto">
-                  <h2 className="text-3xl font-bold tracking-tight text-white sm:text-5xl">Pronto para profissionalizar sua operação?</h2>
-                  <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">Junte-se a empresas que reduziram em 40% o tempo administrativo.</p>
-                  <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                      <button className="h-14 rounded-full bg-white px-8 text-lg font-bold text-slate-900 transition hover:bg-sky-50">Solicitar Demonstração</button>
+      {/* SEÇÃO DE CONTATO (COPIADA DA OCEANO AZUL) */}
+      <section id="contato-ija" className="py-24 bg-white">
+          <Container>
+              <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                  
+                  {/* ESQUERDA: Texto */}
+                  <div className="lg:col-span-5">
+                      <Reveal>
+                          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold mb-6 border border-blue-100">
+                              <Mail size={12}/> Entre em Contato
+                          </div>
+                      </Reveal>
+                      <Reveal delay={0.1}>
+                          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                              Solicite uma Demo <span className="text-blue-600">do IJA System</span>
+                          </h2>
+                          <p className="text-slate-500 text-lg mb-10 leading-relaxed">
+                              Nossa equipe está pronta para demonstrar como o software pode revolucionar sua operação.
+                          </p>
+                      </Reveal>
+                      
+                      <div className="space-y-8">
+                          <Reveal delay={0.2}>
+                              <div className="flex items-start gap-5">
+                                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 flex-shrink-0 shadow-sm border border-blue-100">
+                                      <Mail size={22}/>
+                                  </div>
+                                  <div>
+                                      <h4 className="font-bold text-slate-900 text-lg">Email</h4>
+                                      <p className="text-slate-500 mt-1">contato@ijasystem.com.br</p>
+                                  </div>
+                              </div>
+                          </Reveal>
+                          <Reveal delay={0.3}>
+                              <div className="flex items-start gap-5">
+                                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 flex-shrink-0 shadow-sm border border-blue-100">
+                                      <Phone size={22}/>
+                                  </div>
+                                  <div>
+                                      <h4 className="font-bold text-slate-900 text-lg">Suporte</h4>
+                                      <p className="text-slate-500 mt-1">+55 (11) 98765-4321</p>
+                                  </div>
+                              </div>
+                          </Reveal>
+                      </div>
                   </div>
-              </div>
-          </div>
-        </Reveal>
-      </Section>
 
-      <footer className="bg-[#0f172a] text-slate-300 pt-20 pb-10">
+                  {/* BLOCO REVEAL COMPLETO COM FORMSPREE */}
+                  <Reveal delay={0.2} className="lg:col-span-5 lg:col-start-8 w-full bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50">
+                      
+                      {state.succeeded ? (
+                          <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center animate-fade-in">
+                              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6 shadow-sm">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                              </div>
+                              <h3 className="text-2xl font-bold text-slate-800 mb-2">Mensagem Enviada!</h3>
+                              <p className="text-slate-500 max-w-xs mx-auto mb-8">
+                                  Obrigado pelo interesse. Entraremos em contato em breve para agendar sua demonstração.
+                              </p>
+                              <button 
+                                  onClick={() => window.location.reload()} 
+                                  className="text-blue-600 font-bold hover:text-blue-700 hover:underline text-sm transition-colors"
+                              >
+                                  Enviar outra mensagem
+                              </button>
+                          </div>
+                      ) : (
+                          <form onSubmit={handleSubmit} className="space-y-5 w-full">
+                              <div>
+                                  <label htmlFor="name" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Nome Completo</label>
+                                  <input 
+                                      id="name"
+                                      type="text" 
+                                      name="name" 
+                                      required
+                                      placeholder="Seu nome" 
+                                      className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"
+                                  />
+                                  <ValidationError prefix="Nome" field="name" errors={state.errors} className="text-red-500 text-xs mt-1" />
+                              </div>
+                              
+                              <div>
+                                  <label htmlFor="email" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Email</label>
+                                  <input 
+                                      id="email"
+                                      type="email" 
+                                      name="email" 
+                                      required
+                                      placeholder="seu@email.com" 
+                                      className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"
+                                  />
+                                  <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-xs mt-1" />
+                              </div>
+                              
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div>
+                                      <label htmlFor="phone" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Telefone</label>
+                                      <input 
+                                          id="phone"
+                                          type="tel" 
+                                          name="phone" 
+                                          placeholder="(00) 00000-0000" 
+                                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400"
+                                      />
+                                  </div>
+                                  <div>
+                                      <label htmlFor="interest" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Interesse</label>
+                                      <select 
+                                          id="interest"
+                                          name="interest" 
+                                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all text-slate-600 cursor-pointer"
+                                      >
+                                          <option value="">Selecione...</option>
+                                          <option value="Demo do Sistema">Demo do Sistema</option>
+                                          <option value="Dúvida Técnica">Dúvida Técnica</option>
+                                          <option value="Parceria">Parceria</option>
+                                          <option value="Outros">Outros</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              
+                              <div>
+                                  <label htmlFor="message" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Mensagem</label>
+                                  <textarea 
+                                      id="message"
+                                      name="message" 
+                                      required
+                                      rows={4} 
+                                      placeholder="Conte-nos sobre sua operação..." 
+                                      className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-slate-400 resize-none"
+                                  ></textarea>
+                                  <ValidationError prefix="Mensagem" field="message" errors={state.errors} className="text-red-500 text-xs mt-1" />
+                              </div>
+                              
+                              <button 
+                                  type="submit" 
+                                  disabled={state.submitting}
+                                  className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/25 active:scale-[0.98] mt-2 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                              >
+                                  {state.submitting ? (
+                                      <>
+                                          <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                          </svg>
+                                          <span>Enviando...</span>
+                                      </>
+                                  ) : (
+                                      "Solicitar Demo"
+                                  )}
+                              </button>
+                          </form>
+                      )}
+                  </Reveal>
+                  
+              </div>
+          </Container>
+      </section>
+
+      <footer className="bg-[#0f172a] text-slate-300 pt-12 pb-8 border-t border-slate-800">
         <Container>
-            <div className="grid md:grid-cols-4 gap-12 mb-16">
-                <div><div className="flex items-center gap-2 mb-6"><div className="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">IJ</div><span className="text-2xl font-bold text-white tracking-tight">IJA<span className="text-sky-500">System</span></span></div><p className="text-sm text-slate-400 mb-6">Soluções tecnológicas avançadas para o mercado de drones e aviação agrícola.</p><div className="flex gap-4"><a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-sky-600 transition-colors"><Facebook size={18}/></a><a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-sky-600 transition-colors"><Instagram size={18}/></a><a href="#" className="w-9 h-9 bg-slate-800 rounded-full flex items-center justify-center hover:bg-sky-600 transition-colors"><Linkedin size={18}/></a></div></div>
-                <div><h4 className="font-bold text-white mb-6">Produto</h4><ul className="space-y-3 text-sm"><li><a href="#" className="hover:text-sky-400 transition-colors">Funcionalidades</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Planos e Preços</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Para Pilotos</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Para Empresas</a></li></ul></div>
-                <div><h4 className="font-bold text-white mb-6">Empresa</h4><ul className="space-y-3 text-sm"><li><a href="#" className="hover:text-sky-400 transition-colors">Sobre Nós</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Blog</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Carreiras</a></li><li><button onClick={onBack} className="hover:text-sky-400 transition-colors flex items-center gap-1">Voltar para Oceano Azul <ArrowRight size={12}/></button></li></ul></div>
-                <div><h4 className="font-bold text-white mb-6">Suporte</h4><ul className="space-y-3 text-sm"><li><a href="#" className="hover:text-sky-400 transition-colors">Central de Ajuda</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Documentação API</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Status do Sistema</a></li><li><a href="#" className="hover:text-sky-400 transition-colors">Contato</a></li></ul></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-12 items-start">
+                
+                {/* COLUNA 1: MARCA OCEANO AZUL + IJA */}
+                <div className="lg:col-span-4 flex flex-col items-start">
+                    <div className="relative w-auto h-16 mb-5 cursor-pointer" onClick={onBack}>
+                          <img
+                            src="/images/logo-ija.png"
+                            alt="Oceano Azul"
+                            className="w-full h-full object-contain object-left"
+                         />
+                    </div>
+
+                    <p className="text-sm text-slate-400 mb-6 leading-relaxed max-w-sm">
+                        Soluções tecnológicas avançadas para o mercado de drones e aviação agrícola.
+                    </p>
+                </div>
+
+                {/* ESPAÇAMENTO */}
+                <div className="hidden lg:block lg:col-span-2"></div>
+
+                {/* COLUNA 2: PRODUTO */}
+                <div className="lg:col-span-2">
+                    <h4 className="font-bold text-white mb-5 text-base">Produto</h4>
+                    <ul className="space-y-3 text-sm font-medium text-slate-400">
+                        <li><a href="#" className="hover:text-white transition-colors block">Funcionalidades</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Planos</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Para Pilotos</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Para Empresas</a></li>
+                    </ul>
+                </div>
+
+                {/* COLUNA 3: NAVEGAÇÃO */}
+                <div className="lg:col-span-2">
+                    <h4 className="font-bold text-white mb-5 text-base">Navegação</h4>
+                    <ul className="space-y-3 text-sm font-medium text-slate-400">
+                        <li><a href="#" className="hover:text-white transition-colors block">Sobre Nós</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Blog</a></li>
+                        <li>
+                            <button onClick={onBack} className="hover:text-white transition-colors flex items-center gap-1 group">
+                                Voltar ao Site <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform"/>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                {/* COLUNA 4: SUPORTE */}
+                <div className="lg:col-span-2">
+                    <h4 className="font-bold text-white mb-5 text-base">Suporte</h4>
+                    <ul className="space-y-3 text-sm font-medium text-slate-400">
+                        <li><a href="#" className="hover:text-white transition-colors block">Central de Ajuda</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Status do Sistema</a></li>
+                        <li><a href="#" className="hover:text-white transition-colors block">Contato</a></li>
+                    </ul>
+                </div>
             </div>
+
             <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-                <p>&copy; 2026 IJA Drones. Todos os direitos reservados.</p>
-                <div className="flex gap-6"><a href="#" className="hover:text-white transition-colors">Política de Privacidade</a><a href="#" className="hover:text-white transition-colors">Termos de Uso</a></div>
+                <p>&copy; 2026 IJA System / Oceano Azul. Todos os direitos reservados.</p>
+                <div className="flex gap-6 font-medium">
+                    <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
+                    <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
+                    <a href="#" className="hover:text-white transition-colors">Cookies</a>
+                </div>
             </div>
         </Container>
       </footer>
@@ -484,13 +707,12 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
       >
         <Container>
             <div className="flex items-center justify-between h-30">
-                {/* Substitua o trecho antigo por este: */}
                 <div className="relative w-60 h-24">
                     <a href="#"> <Image 
-                        src="/images/oceano-azul-logo-sem-fundo.png" // Coloque o nome exato do seu arquivo que está na pasta public
+                        src="/images/oceano-azul-logo-sem-fundo.png"
                         alt="Logo oeceano azul"
                         fill
-                        className="object-contain object-left" // Garante que a logo não distorça e alinhe à esquerda
+                        className="object-contain object-left" 
                         />
                     </a>
                 </div>
@@ -624,7 +846,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-2 bg-blue-200/30 -rotate-45 z-10"></div>
 
                             {/* --- HÉLICES E LUZES (Propellers & LEDs) --- */}
-                            {/* Nota: As hélices agora têm rotação condicional (isHovering ? 360 : 0) */}
                             
                             {/* Topo Esquerda */}
                             <div className="absolute top-0 left-0 w-36 h-36 flex items-center justify-center">
@@ -711,10 +932,10 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                         <div className="order-1 md:order-2">
                              <AnimatedImageFrame className="h-80 shadow-lg bg-slate-200">
                                  <Image 
-                                src="/images/drone-agro.png" // Coloque aqui o nome do seu arquivo que está na pasta public
+                                src="/images/drone-agro.png"
                                 alt="pulverização agrícola com drones"
-                                fill // Faz a imagem preencher todo o container
-                                className="object-cover" // Garante que a imagem cubra a área sem distorcer (corta o excesso)
+                                fill
+                                className="object-cover"
                             />
                              </AnimatedImageFrame>
                         </div>
@@ -726,10 +947,10 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <AnimatedImageFrame className="h-80 shadow-lg bg-slate-200">
                              <Image 
-                                src="/images/drone-dengue.png" // Coloque aqui o nome do seu arquivo que está na pasta public
+                                src="/images/drone-dengue.png"
                                 alt="Controle de Dengue e Monitoramento Urbano"
-                                fill // Faz a imagem preencher todo o container
-                                className="object-cover" // Garante que a imagem cubra a área sem distorcer (corta o excesso)
+                                fill
+                                className="object-cover" 
                             />
                         </AnimatedImageFrame>
                         <div>
@@ -771,7 +992,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                 </Reveal>
             </div>
 
-            {/* 1. items-stretch: Garante que as colunas do grid tenham a mesma altura */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 {[
                     { title: "Economia de Tempo", icon: Clock, desc: "Até 60x mais rápido que pulverização tradicional." },
@@ -783,11 +1003,8 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                     { title: "Equipe Certificada", icon: Shield, desc: "Pilotos competentes e habilitados pela DECEA." },
                     { title: "Cobertura Regional", icon: MapPin, desc: "Atendimento em toda sua região, garantindo cobertura completa." },
                 ].map((item, i) => (
-                    // 2. Passamos className="h-full" para o Reveal
-                    // IMPORTANTE: O componente Reveal precisa aceitar e aplicar essa classe na div principal dele
                     <Reveal key={i} delay={i * 0.05} className="h-full" width="100%">
                         
-                        {/* 3. Card com h-full e flex flex-col para ocupar tudo e alinhar */}
                         <div className="h-full p-6 rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col">
                             <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 mb-4 shrink-0">
                                 <item.icon size={20}/>
@@ -801,16 +1018,11 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
          </Container>
       </section>
             
-      {/* CTA AZUL (EQUIPE) - CORREÇÃO DEFINITIVA DE LARGURA */}
+      {/* CTA AZUL (EQUIPE) */}
       <section className="py-16 bg-slate-50">
-         
-         {/* Container livre para ocupar toda a largura */}
          <div className="w-full px-4 md:px-6">
-            
-            {/* ADICIONEI width="100%" AQUI PARA FORÇAR A LARGURA */}
             <Reveal width="100%" className="relative rounded-[2.5rem] overflow-hidden bg-blue-700 py-16 md:py-20 px-6 shadow-xl mx-auto w-full max-w-[1280px]">
 
-                {/* 1. IMAGEM DE FUNDO */}
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/images/equipe-bg.png" 
@@ -820,10 +1032,8 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                     />
                 </div>
 
-                {/* 2. OVERLAY GRADIENTE */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-800/90 via-blue-700/80 to-blue-800/90 z-10"></div>
 
-                {/* 3. CONTEÚDO */}
                 <div className="relative z-20 text-center text-white max-w-4xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
                         Equipe Profissional e Certificada
@@ -850,10 +1060,8 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
       {/* FORMULÁRIO DE CONTATO */}
       <section id="contato" className="py-24 bg-white">
           <Container>
-              {/* Usei 'items-center' para alinhar verticalmente pelo centro, se preferir topo use 'items-start' */}
               <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                   
-                  {/* ESQUERDA: 5 Colunas */}
                   <div className="lg:col-span-5">
                       <Reveal>
                           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold mb-6 border border-blue-100">
@@ -906,14 +1114,11 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                       </div>
                   </div>
 
-                  {/* BLOCO REVEAL COMPLETO COM FORMSPREE */}
                   <Reveal delay={0.2} className="lg:col-span-5 lg:col-start-8 w-full bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50">
                       
-                      {/* ESTADO 1: MENSAGEM DE SUCESSO (Aparece se state.succeeded for true) */}
                       {state.succeeded ? (
                           <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center animate-fade-in">
                               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6 shadow-sm">
-                                  {/* Ícone de Check */}
                                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                               </div>
                               <h3 className="text-2xl font-bold text-slate-800 mb-2">Mensagem Enviada!</h3>
@@ -929,10 +1134,8 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                           </div>
                       ) : (
                           
-                          /* ESTADO 2: O FORMULÁRIO DE CONTATO */
                           <form onSubmit={handleSubmit} className="space-y-5 w-full">
                               
-                              {/* Campo: Nome */}
                               <div>
                                   <label htmlFor="name" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Nome Completo</label>
                                   <input 
@@ -946,7 +1149,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                                   <ValidationError prefix="Nome" field="name" errors={state.errors} className="text-red-500 text-xs mt-1" />
                               </div>
                               
-                              {/* Campo: Email */}
                               <div>
                                   <label htmlFor="email" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Email</label>
                                   <input 
@@ -960,7 +1162,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                                   <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-xs mt-1" />
                               </div>
                               
-                              {/* Grid: Telefone e Interesse */}
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                   <div>
                                       <label htmlFor="phone" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Telefone</label>
@@ -988,7 +1189,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                                   </div>
                               </div>
                               
-                              {/* Campo: Mensagem */}
                               <div>
                                   <label htmlFor="message" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Mensagem</label>
                                   <textarea 
@@ -1002,7 +1202,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                                   <ValidationError prefix="Mensagem" field="message" errors={state.errors} className="text-red-500 text-xs mt-1" />
                               </div>
                               
-                              {/* Botão de Enviar com Loading */}
                               <button 
                                   type="submit" 
                                   disabled={state.submitting}
@@ -1028,18 +1227,13 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
           </Container>
       </section>
 
-      {/* FOOTER COMPACTO E VISUALMENTE IDÊNTICO À REFERÊNCIA */}
+      {/* FOOTER COMPACTO */}
       <footer className="bg-[#0f172a] text-slate-300 pt-12 pb-8 border-t border-slate-800">
         <Container>
-            {/* Grid ajustado: gap-8 para ficar mais próximo, mb-12 para reduzir altura total */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-12 items-start">
-
-                {/* COLUNA 1: MARCA, TEXTO E REDES SOCIAIS (Ocupa 4 colunas) */}
                 <div className="lg:col-span-4 flex flex-col items-start">
-                    
-                    {/* LOGO: Tamanho equilibrado para não esticar o footer */}
                     <div className="relative w-auto h-16 mb-5">
-                         <img
+                          <img
                             src="/images/oceano-azul-logo-sem-fundo.png"
                             alt="Oceano Azul"
                             className="w-full h-full object-contain object-left"
@@ -1050,7 +1244,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                         Especialistas em pulverização com drones para agricultura e controle urbano. Tecnologia e precisão a seu serviço.
                     </p>
                     
-                    {/* REDES SOCIAIS - AZUL VIBRANTE (Igual à foto de referência) */}
                     <div className="flex gap-3">
                         <a href="https://www.instagram.com/oceanoazul.drones?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="blank_" className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition-all duration-300 shadow-lg shadow-blue-900/20">
                             <Instagram size={18}/>
@@ -1061,10 +1254,8 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                     </div>
                 </div>
 
-                {/* ESPAÇO VAZIO (2 colunas) para separar a logo dos links */}
                 <div className="hidden lg:block lg:col-span-2"></div>
 
-                {/* COLUNA 2: SERVIÇOS */}
                 <div className="lg:col-span-2">
                     <h4 className="font-bold text-white mb-5 text-base">Serviços</h4>
                     <ul className="space-y-3 text-sm font-medium text-slate-400">
@@ -1075,7 +1266,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                     </ul>
                 </div>
 
-                {/* COLUNA 3: EMPRESA */}
                 <div className="lg:col-span-2">
                     <h4 className="font-bold text-white mb-5 text-base">Empresa</h4>
                     <ul className="space-y-3 text-sm font-medium text-slate-400">
@@ -1090,7 +1280,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                     </ul>
                 </div>
 
-                {/* COLUNA 4: SUPORTE */}
                 <div className="lg:col-span-2">
                     <h4 className="font-bold text-white mb-5 text-base">Suporte</h4>
                     <ul className="space-y-3 text-sm font-medium text-slate-400">
@@ -1102,7 +1291,6 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                 </div>
             </div>
 
-            {/* BARRA INFERIOR (COPYRIGHT) */}
             <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
                 <p>&copy; 2026 Oceano Azul. Todos os direitos reservados.</p>
                 <div className="flex gap-6 font-medium">
