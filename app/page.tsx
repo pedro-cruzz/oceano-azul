@@ -10,7 +10,7 @@ import {
   Plus, Edit, Trash2, MapPin, Map, Shield, Zap, Sparkles, BarChart3,
   Bot, ShieldCheck, Cloud, Smartphone, Clock, Leaf, Droplets, Timer,
   Target, TrendingUp, Download, CheckCircle2, DollarSign, ChevronRight,
-  Paperclip
+  Paperclip, ChevronDown 
 } from "lucide-react"
 
 // IMPORTAÇÃO DO SEU LOADING SEPARADO
@@ -145,6 +145,11 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
   // ATIVADO: Agora usamos o formulário nesta view também
   const [state, handleSubmit] = useForm("meeeqdzk");
 
+  React.useEffect(() => {
+    // Força a página a rolar para o topo instantaneamente ao abrir
+    window.scrollTo(0, 0);
+  }, []);
+
   const SidebarItem = ({ id, icon: Icon, label }: any) => (
     <button 
       onClick={() => setActiveTab(id)}
@@ -157,7 +162,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
   )
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-0">
       
       {/* NAVBAR ESTILO OCEANO AZUL (Adaptada para IJA) */}
       <motion.nav 
@@ -169,7 +174,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                 <div className="relative w-60 h-24">
                     <a href="#" onClick={onBack}> 
                       <Image 
-                        src="/images/oceano-azul-logo-sem-fundo.png" 
+                        src="/images/logo-ija.png" 
                         alt="Logo oceano azul"
                         fill
                         className="object-contain object-left"
@@ -185,7 +190,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                     {/* Botão de Voltar (Contextual) */}
                     <button 
                         onClick={onBack}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all"
+                        className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-sky-600 text-sky-600 font-bold text-sm hover:bg-sky-50 transition-all"
                     >
                         <ArrowRight className="rotate-180" size={14}/> Voltar para Oceano Azul
                     </button>
@@ -211,62 +216,75 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
       </motion.nav>
 
       {/* HERO SECTION IJA DRONES (COM FOTO FLUTUANTE) */}
-      <section className="pt-32 pb-16 lg:pt-48 lg:pb-32 bg-white overflow-hidden">
-         <Container>
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-                <div className="flex-1 text-center lg:text-left z-10">
-                    <Reveal>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 text-xs font-bold mb-6 border border-sky-100">
-                            <Zap size={12}/> Software de Gestão Especializado
-                        </div>
-                    </Reveal>
-                    <Reveal delay={0.1}>
-                        <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
-                            O sistema operacional da sua <span className="text-sky-600">frota de drones.</span>
-                        </h1>
-                    </Reveal>
-                    <Reveal delay={0.2}>
-                        <p className="text-lg text-slate-500 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                            Centralize operações, automatize relatórios e ganhe visibilidade total. 
-                            De pulverização agrícola a inspeções urbanas em uma única plataforma.
-                        </p>
-                    </Reveal>
-                    <Reveal delay={0.3}>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <button className="px-8 py-3.5 bg-sky-600 text-white rounded-full font-bold shadow-lg hover:bg-sky-700 transition-all">Agendar Demo</button>
-                            <button className="px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-full font-bold hover:bg-slate-50 transition-all">Ver Recursos</button>
-                        </div>
-                    </Reveal>
+      <section className="pt-32 pb-16 lg:pt-30 lg:pb-32 bg-white overflow-hidden">
+        <Container>
+            {/* MUDANÇA 1: Troquei items-center por items-center lg:items-start */}
+            {/* Isso alinha pelo topo no PC, permitindo controlar a altura individualmente */}
+            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-16 lg:justify-between">
+            
+            {/* Lado Esquerdo: Texto */}
+            {/* MUDANÇA 2: Adicionei lg:mt-10 para o texto descer só um pouquinho e ficar centralizado visualmente */}
+            <div className="flex-1 lg:w-3/5 text-center lg:text-left z-10 lg:mt-10">
+                <Reveal>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 text-xs font-bold mb-6 border border-sky-100">
+                    <Zap size={12} /> Software de Gestão Especializado
                 </div>
-
-                {/* Lado Direito: Imagem do Drone "Flutuando" */}
-                <div className="flex-1 relative w-full flex justify-center items-center">
-                    
-                    <Reveal delay={0.4} width="100%" className="relative w-full max-w-2xl aspect-square">
-                        
-                        {/* Efeito de brilho no fundo */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-sky-100/50 rounded-full blur-3xl -z-10"></div>
-                        
-                        {/* Movimento de Flutuar */}
-                        <motion.div 
-                            animate={{ y: [0, -25, 0] }} 
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} 
-                            className="relative w-full h-full"
-                        >
-                            <div className="relative w-full h-full rounded-3xl overflow-visible flex items-center justify-center">
-                                <img 
-                                    src="/images/drone.png" 
-                                    alt="Drone IJA System"
-                                    className="w-full h-full object-contain drop-shadow-2xl z-10"
-                                />
-
-                            </div>
-                        </motion.div>
-                    </Reveal>
+                </Reveal>
+                <Reveal delay={0.1}>
+                <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                    O sistema operacional da sua{" "}
+                    <span className="text-sky-600">frota de drones.</span>
+                </h1>
+                </Reveal>
+                <Reveal delay={0.2}>
+                <p className="text-lg text-slate-500 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    Centralize operações, automatize relatórios e ganhe visibilidade
+                    total. De pulverização agrícola a inspeções urbanas em uma única
+                    plataforma.
+                </p>
+                </Reveal>
+                <Reveal delay={0.3}>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button className="px-8 py-3.5 bg-sky-600 text-white rounded-full font-bold shadow-lg hover:bg-sky-700 transition-all">
+                    Agendar Demo
+                    </button>
+                    <button className="px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-full font-bold hover:bg-slate-50 transition-all">
+                    Ver Recursos
+                    </button>
                 </div>
+                </Reveal>
             </div>
-         </Container>
-      </section>
+
+            {/* Lado Direito: Imagem */}
+            {/* MUDANÇA 3: Adicionei lg:mt-32 para a imagem descer BEM MAIS que o texto */}
+            <div className="flex-1 lg:w-2/5 relative w-full flex justify-center items-center lg:mt-32">
+                <Reveal
+                delay={0.4}
+                width="100%"
+                className="relative w-full max-w-lg aspect-square"
+                >
+                {/* Efeito de brilho */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-sky-100/50 rounded-full blur-3xl -z-10"></div>
+
+                {/* Movimento de Flutuar */}
+                <motion.div
+                    animate={{ y: [0, -25, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative w-full h-full"
+                >
+                    <div className="relative w-full h-full rounded-3xl overflow-visible flex items-center justify-center">
+                    <img
+                        src="/images/drone.png"
+                        alt="Drone IJA System"
+                        className="w-full h-full object-contain drop-shadow-2xl z-10"
+                    />
+                    </div>
+                </motion.div>
+                </Reveal>
+            </div>
+            </div>
+        </Container>
+        </section>
 
       {/* TÍTULO ANTES DO MOCKUP */}
       <section className="py-10 bg-slate-50">
@@ -277,17 +295,18 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
               </div>
           </Container>
       </section>
-
-      {/* MOCKUP INTERATIVO */}
+      {/* MOCKUP INTERATIVO (ATUALIZADO) */}
       <div className="max-w-7xl mx-auto px-4 mb-32 -mt-8">
         <AnimatedImageFrame className="shadow-2xl border border-slate-200 bg-white">
+            {/* BARRA DO NAVEGADOR */}
             <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center gap-4">
                 <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400"/><div className="w-3 h-3 rounded-full bg-amber-400"/><div className="w-3 h-3 rounded-full bg-emerald-400"/></div>
                 <div className="flex-1 bg-white border border-slate-200 h-6 rounded-md flex items-center justify-center text-[10px] text-slate-400 font-mono">app.ijasystem.com/{activeTab}</div>
                 <div className="w-10 flex justify-end text-slate-300"><Bell size={14} /></div>
             </div>
 
-            <div className="flex h-[700px] bg-slate-50/30 text-left">
+            <div className="flex h-[500px] bg-slate-50/30 text-left">
+                {/* SIDEBAR */}
                 <div className="w-16 md:w-56 bg-white border-r border-slate-200 p-4 flex flex-col justify-between">
                     <div>
                         <div className="flex items-center gap-2 mb-8 text-slate-800 font-bold"><div className="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center text-white"><Zap size={16} fill="currentColor"/></div><span className="hidden md:inline">IJA System</span></div>
@@ -302,8 +321,9 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                 </div>
 
                 <div className="flex-1 p-6 overflow-y-auto bg-slate-50/50 relative">
+                    {/* HEADER DA PÁGINA */}
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-2xl font-bold text-slate-800 capitalize">{activeTab}</h2>
+                        <h2 className="text-2xl font-bold text-slate-800 capitalize">{activeTab === 'dashboard' ? 'Painel de Gestão' : activeTab}</h2>
                         <div className="flex gap-2">
                              {activeTab === 'pilotos' ? (
                                 <button className="h-8 px-3 rounded-lg bg-sky-600 text-white text-xs flex items-center gap-1 font-medium shadow-sm hover:bg-sky-700 transition-colors"><Plus size={12}/> Novo Piloto</button>
@@ -315,6 +335,8 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                     </div>
                     
                     <div className="flex-1 min-h-0 relative">
+                        
+                        {/* --- DASHBOARD --- */}
                         {activeTab === 'dashboard' && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4 h-full">
                                 <div className="flex justify-between items-center mb-1">
@@ -325,6 +347,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                                     <ChevronRight size={16} className="text-slate-400 rotate-90"/>
                                 </div>
                                 <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex flex-col md:flex-row gap-6">
+                                    {/* Coluna 1 */}
                                     <div className="flex-1 space-y-4">
                                         <div>
                                             <h3 className="text-base font-bold text-sky-700">UVIS Teste QA</h3>
@@ -343,67 +366,118 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                                             <button className="flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white rounded text-xs font-bold hover:bg-red-600 shadow-sm"><Trash2 size={12}/> Deletar</button>
                                         </div>
                                     </div>
+                                    {/* Coluna 2 */}
                                     <div className="flex-1 space-y-3 border-l border-slate-100 pl-0 md:pl-6 text-xs">
-                                        <div className="relative"><input type="text" value="-23.55819, -46.65984" readOnly className="w-full h-9 pl-3 pr-8 rounded border border-slate-200 bg-slate-50 text-slate-700"/><div className="absolute right-2 top-2 text-red-400"><Map size={16}/></div></div>
-                                        <div className="grid grid-cols-2 gap-y-1"><span className="text-slate-500">Tipo:</span> <span className="font-bold text-slate-800">Culex</span><span className="text-slate-500">Foco:</span> <span className="font-bold text-slate-800">Imóvel Abandonado</span></div>
+                                        <div className="relative"><input type="text" value="-23.55819, -46.65984" readOnly className="w-full h-9 pl-3 pr-8 rounded border border-slate-200 bg-slate-50 text-slate-700 font-mono"/><div className="absolute right-2 top-2 text-red-400"><Map size={16}/></div></div>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <input className="w-full h-8 px-2 rounded border border-slate-200" placeholder="-23.55819"/>
+                                            <input className="w-full h-8 px-2 rounded border border-slate-200" placeholder="-46.65984"/>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-y-1 mt-2"><span className="text-slate-500">Tipo:</span> <span className="font-bold text-slate-800">Culex</span><span className="text-slate-500">Foco:</span> <span className="font-bold text-slate-800">Imóvel Abandonado</span></div>
                                     </div>
+                                    {/* Coluna 3 */}
                                     <div className="flex-1 space-y-3 border-l border-slate-100 pl-0 md:pl-6">
                                         <div className="border border-slate-200 rounded-lg p-3 space-y-3">
-                                            <div><span className="text-xs text-slate-500 block mb-1">Status</span><div className="w-full h-8 px-3 rounded border border-slate-200 bg-white text-xs flex items-center justify-between"><div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"/> Aprovar</div><ChevronRight size={12} className="rotate-90 text-slate-400"/></div></div>
+                                            <div><span className="text-xs text-slate-500 block mb-1">Status</span><div className="w-full h-8 px-3 rounded border border-slate-200 bg-white text-xs flex items-center justify-between"><div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"/> Aprovar</div><ChevronDown size={12} className="text-slate-400"/></div></div>
+                                            <div><span className="text-xs text-slate-500 block mb-1">Piloto responsável</span><div className="w-full h-8 px-3 rounded border border-slate-200 bg-white text-xs flex items-center justify-between">PH Cruz (LESTE)<ChevronDown size={12} className="text-slate-400"/></div></div>
                                             <button className="w-full h-8 rounded bg-sky-500 text-white text-xs font-bold hover:bg-sky-600 shadow-sm">Salvar</button>
                                         </div>
                                     </div>
                                 </div>
                             </motion.div>
                         )}
+
+                        {/* --- RELATÓRIOS --- */}
                         {activeTab === 'relatorios' && (
                             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-5 h-full">
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">TOTAL</div><div className="text-2xl font-bold text-slate-800">5</div></div>
-                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">APROVADAS</div><div className="text-2xl font-bold text-slate-800">1</div></div>
-                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">EM ANÁLISE</div><div className="text-2xl font-bold text-slate-800">1</div></div>
-                                  <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm"><div className="text-[10px] font-bold text-slate-400">RECUSADAS</div><div className="text-2xl font-bold text-slate-800">0</div></div>
+                                <h3 className="text-lg font-bold text-slate-800">Dados de Janeiro / 2026</h3>
+                                {/* Cards do Relatório - Grid de 6 colunas */}
+                                <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+                                    <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-blue-800"><div className="text-[10px] font-bold text-slate-400">TOTAL</div><div className="text-2xl font-bold text-slate-800">5</div></div>
+                                    <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-emerald-500"><div className="text-[10px] font-bold text-slate-400">APROVADAS</div><div className="text-2xl font-bold text-slate-800">1</div></div>
+                                    <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-orange-500"><div className="text-[10px] font-bold text-slate-400 leading-tight">APROVADAS C/ RECOM.</div><div className="text-2xl font-bold text-slate-800">2</div></div>
+                                    <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-red-500"><div className="text-[10px] font-bold text-slate-400">RECUSADAS</div><div className="text-2xl font-bold text-slate-800">0</div></div>
+                                    <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-yellow-500"><div className="text-[10px] font-bold text-slate-400">EM ANÁLISE</div><div className="text-2xl font-bold text-slate-800">1</div></div>
+                                    <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-cyan-500"><div className="text-[10px] font-bold text-slate-400">PENDENTES</div><div className="text-2xl font-bold text-slate-800">1</div></div>
                                 </div>
-                                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex-1">
-                                    <table className="w-full text-left text-xs">
-                                        <thead className="bg-slate-50 border-b border-slate-100 text-slate-500"><tr><th className="px-4 py-3">ID</th><th className="px-4 py-3">Tipo</th><th className="px-4 py-3">Status</th></tr></thead>
-                                        <tbody className="divide-y divide-slate-100">
-                                            <tr><td className="px-4 py-3 text-slate-500">#RP-001</td><td className="px-4 py-3">Vistoria</td><td className="px-4 py-3"><span className="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full font-bold text-[9px]">Aprovado</span></td></tr>
-                                            <tr><td className="px-4 py-3 text-slate-500">#RP-002</td><td className="px-4 py-3">Mapeamento</td><td className="px-4 py-3"><span className="bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-bold text-[9px]">Análise</span></td></tr>
-                                        </tbody>
-                                    </table>
+                                
+                                {/* Gráficos */}
+                                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col items-center justify-center relative">
+                                        <div className="absolute top-4 left-4 font-bold text-slate-700 text-sm flex items-center gap-2"><div className="w-3 h-3 bg-sky-500 rounded-full"/> Status</div>
+                                        <div className="w-48 h-48 rounded-full border-[20px] border-slate-100 border-t-emerald-500 border-r-orange-500 border-b-sky-500 transform rotate-45"></div>
+                                    </div>
+                                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 relative">
+                                        <div className="absolute top-4 left-4 font-bold text-slate-700 text-sm flex items-center gap-2"><MapPin size={16} className="text-sky-600"/> Solicitações por Região</div>
+                                        <div className="mt-12 space-y-4">
+                                            <div>
+                                                <div className="text-xs font-bold text-slate-600 mb-1">OESTE</div>
+                                                <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden"><div className="h-full w-[90%] bg-blue-600 rounded-full"/></div>
+                                            </div>
+                                            <div>
+                                                <div className="text-xs font-bold text-slate-600 mb-1">NORTE</div>
+                                                <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden"><div className="h-full w-[10%] bg-blue-600 rounded-full"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
                         )}
+
+                        {/* --- AGENDA --- */}
                         {activeTab === 'agenda' && (
                             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex-1 flex flex-col">
                                 <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
                                     <div className="flex gap-1"><button className="p-1 text-slate-500"><ChevronRight size={16} className="rotate-180"/></button><button className="p-1 text-slate-500"><ChevronRight size={16}/></button></div>
-                                    <h3 className="text-sm font-bold text-slate-800">Janeiro 2026</h3>
-                                    <button className="px-3 py-1 bg-slate-100 rounded text-xs font-bold text-slate-600">Hoje</button>
+                                    <h3 className="text-sm font-bold text-slate-800 capitalize">Janeiro 2026</h3>
+                                    <div className="flex bg-slate-100 rounded p-1"><button className="px-3 py-0.5 bg-slate-800 text-white rounded text-[10px] font-bold">Mês</button><button className="px-3 py-0.5 text-slate-500 text-[10px] font-bold">Lista</button></div>
                                 </div>
-                                <div className="flex-1 bg-slate-50 grid grid-cols-7 gap-px">
-                                    {[...Array(35)].map((_, i) => (
-                                        <div key={i} className="bg-white p-1 min-h-[40px]">
-                                            <span className="text-[10px] text-slate-400 font-medium">{i > 2 && i < 34 ? i - 2 : ''}</span>
-                                            {i === 12 && <div className="mt-1 bg-sky-100 text-sky-700 text-[8px] font-bold px-1 rounded truncate">Vistoria Sul</div>}
-                                        </div>
-                                    ))}
+                                <div className="flex-1 bg-slate-50 grid grid-cols-7 gap-px border-b border-slate-200">
+                                    {['DOM.','SEG.','TER.','QUA.','QUI.','SEX.','SÁB.'].map(d => <div key={d} className="bg-slate-50 py-2 text-center text-[10px] font-bold text-slate-400 tracking-wider">{d}</div>)}
+                                    {[...Array(35)].map((_, i) => {
+                                        const day = i > 3 ? i - 3 : null;
+                                        return (
+                                            <div key={i} className={`bg-white p-1 min-h-[60px] relative ${!day ? 'bg-slate-50/50' : ''}`}>
+                                                <span className="text-[10px] text-slate-400 font-medium block mb-1">{day && day <= 31 ? day : ''}</span>
+                                                {day === 7 && <div className="flex flex-col gap-1"><div className="bg-sky-500 text-white text-[8px] px-1 rounded truncate font-medium">12:45 Terreno Baldi</div><div className="bg-sky-500 text-white text-[8px] px-1 rounded truncate font-medium">13:00 Imóvel Aband.</div></div>}
+                                                {day === 10 && <div className="bg-sky-500 text-white text-[8px] px-1 rounded truncate font-medium">11:00 Piscina / Caixa</div>}
+                                                {day === 12 && <div className="absolute bottom-1 right-1 w-5 h-5 bg-slate-800 text-white rounded-full flex items-center justify-center text-[10px] font-bold">12</div>}
+                                                {day === 12 && <div className="mt-6 bg-sky-500 text-white text-[8px] px-1 rounded truncate font-medium">18:20 Ponto Estrat.</div>}
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </motion.div>
                         )}
+
+                        {/* --- PILOTOS --- */}
                         {activeTab === 'pilotos' && (
                             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex-1 flex flex-col">
                                  <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center"><h3 className="text-sm font-bold text-slate-700">Total: 5</h3></div>
                                  <div className="flex-1 overflow-auto">
                                     <table className="w-full text-left text-xs">
-                                        <thead className="bg-slate-100 text-slate-600 font-bold uppercase text-[10px]"><tr><th className="px-4 py-3">Nome</th><th className="px-4 py-3">Região</th><th className="px-4 py-3 text-right">Ações</th></tr></thead>
+                                        <thead className="bg-slate-100 text-slate-600 font-bold uppercase text-[10px]">
+                                            <tr><th className="px-4 py-3">ID</th><th className="px-4 py-3">Nome</th><th className="px-4 py-3">Região</th><th className="px-4 py-3">Telefone</th><th className="px-4 py-3 text-right">Ações</th></tr>
+                                        </thead>
                                         <tbody className="divide-y divide-slate-50">
-                                            {[1,2,3,4,5].map((i) => (
-                                            <tr key={i}>
-                                                <td className="px-4 py-3 font-bold text-slate-700">Piloto {i}</td>
-                                                <td className="px-4 py-3"><span className="px-2 py-0.5 bg-slate-100 border border-slate-200 rounded text-[9px] font-bold text-slate-500">NORTE</span></td>
-                                                <td className="px-4 py-3 text-right"><button className="text-sky-600 font-bold hover:underline">Editar</button></td>
+                                            {[
+                                                {id: '#7', name: 'Agrotaigo', reg: 'LESTE', tel: '(99) 99999-9999'},
+                                                {id: '#4', name: 'Enzo', reg: 'NORTE', tel: '(35) 90000-0000'},
+                                                {id: '#3', name: 'João Pedro', reg: 'OESTE', tel: '(22) 22222-2222'},
+                                                {id: '#5', name: 'PH Cruz', reg: 'LESTE', tel: '(35) 99860-3656'},
+                                                {id: '#6', name: 'Piloto 01', reg: 'OESTE', tel: '(11) 99999-9999'}
+                                            ].map((pilot, i) => (
+                                            <tr key={i} className="hover:bg-slate-50">
+                                                <td className="px-4 py-3 text-slate-500">{pilot.id}</td>
+                                                <td className="px-4 py-3 font-bold text-slate-700">{pilot.name}</td>
+                                                <td className="px-4 py-3"><span className="px-2 py-0.5 bg-slate-100 border border-slate-200 rounded text-[9px] font-bold text-slate-500 uppercase">{pilot.reg}</span></td>
+                                                <td className="px-4 py-3 text-sky-600 font-bold flex items-center gap-1"><Phone size={10} fill="currentColor" className="opacity-50"/> {pilot.tel}</td>
+                                                <td className="px-4 py-3 text-right">
+                                                    <div className="flex justify-end gap-2">
+                                                        <button className="flex items-center gap-1 px-2 py-1 bg-sky-600 text-white rounded text-[10px] font-bold hover:bg-sky-700"><Edit size={10}/> Editar</button>
+                                                        <button className="flex items-center gap-1 px-2 py-1 bg-red-500 text-white rounded text-[10px] font-bold hover:bg-red-600"><Trash2 size={10}/> Excluir</button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             ))}
                                         </tbody>
@@ -416,7 +490,8 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
             </div>
         </AnimatedImageFrame>
       </div>
-
+      
+        
       <Section id="recursos">
         <Container>
             <div className="text-center mb-16">
@@ -676,6 +751,11 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
   const [isHovering, setIsHovering] = useState(false);
   const [state, handleSubmit] = useForm("meeeqdzk");
 
+  React.useEffect(() => {
+    // Força a página a rolar para o topo instantaneamente ao abrir
+    window.scrollTo(0, 0);
+  }, []);
+
   // Lógica de Física do Drone
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -898,16 +978,15 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
          <Container>
             <div className="text-center max-w-3xl mx-auto mb-16">
                 <Reveal>
-                    <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase h-7">Nossos Serviços</span>
+                    <span className="inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-xs font-bold mb-4 uppercase h-8 mx-auto">Nossos Serviços</span>
                 </Reveal>
                 <Reveal delay={0.1}>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Soluções profissionais <span className="text-blue-600">para cada necessidade</span></h2>
+                    <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Soluções profissionais <br /><span className="text-blue-600">para cada necessidade</span></h2>
                 </Reveal>
                 <Reveal delay={0.2}>
-                    <p className="text-slate-500">Atendemos produtores rurais e órgãos públicos com serviços especializados.</p>
+                    <p className="text-slate-500 text-lg mx-auto">Atendemos produtores rurais e órgãos públicos com serviços especializados.</p>
                 </Reveal>
             </div>
-
             <div className="space-y-24">
                 {/* Serviço 1: Agro */}
                 <Reveal>
