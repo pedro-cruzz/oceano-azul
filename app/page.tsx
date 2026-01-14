@@ -461,7 +461,7 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                                         </thead>
                                         <tbody className="divide-y divide-slate-50">
                                             {[
-                                                {id: '#7', name: 'Agrotaigo', reg: 'LESTE', tel: '(99) 99999-9999'},
+                                                {id: '#7', name: 'marcelo', reg: 'LESTE', tel: '(99) 99999-9999'},
                                                 {id: '#4', name: 'Enzo', reg: 'NORTE', tel: '(35) 90000-0000'},
                                                 {id: '#3', name: 'João Pedro', reg: 'OESTE', tel: '(22) 22222-2222'},
                                                 {id: '#5', name: 'PH Cruz', reg: 'LESTE', tel: '(35) 99860-3656'},
