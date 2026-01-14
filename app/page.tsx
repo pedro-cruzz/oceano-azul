@@ -2,106 +2,34 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
+
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useForm, ValidationError } from '@formspree/react';
 import {
-  ArrowRight, Menu, X, Phone, Mail, Facebook, Instagram, Linkedin,
-  LayoutDashboard, FileDown, CalendarDays, Users, Bell, Search, Filter,
+  ArrowRight, Menu, X, Phone, Mail, Instagram, Linkedin,
+  LayoutDashboard, FileDown, CalendarDays, Users, Bell, Filter,
   Plus, Edit, Trash2, MapPin, Map, Shield, Zap, Sparkles, BarChart3,
-  Bot, ShieldCheck, Cloud, Smartphone, Clock, Leaf, Droplets, Timer,
+  Bot, ShieldCheck, Cloud, Smartphone, Clock, Leaf,
   Target, TrendingUp, Download, CheckCircle2, DollarSign, ChevronRight,
   Paperclip, ChevronDown
 } from "lucide-react"
 
+import OceanoAzulAboutView from "./components/OceanoAzulAbout"
+import IJADronesProductView from "./components/IJADronesProductView"
+// Importe também o UiKit se for usar na Home
 // IMPORTAÇÃO DO SEU LOADING SEPARADO
 import Preloader from "./preloader"; 
 
 // ==============================================================================
 // 1. UTILITÁRIOS (ANIMAÇÕES E LAYOUT)
 // ==============================================================================
-
-export function Reveal({
-  children,
-  delay = 0,
-  width = "fit-content",
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  width?: "fit-content" | "100%";
-  className?: string;
-}) {
-  return (
-    <div style={{ width }} className={className}>
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 40 },
-          visible: { opacity: 1, y: 0 },
-        }}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7, delay: delay, ease: [0.25, 0.4, 0.25, 1] }}
-      >
-        {children}
-      </motion.div>
-    </div>
-  );
-}
-
-export function AnimatedImageFrame({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`group relative overflow-hidden rounded-3xl ${className}`}>
-      <motion.div
-        initial={{ scale: 1.05, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="h-full w-full"
-      >
-        {children}
-      </motion.div>
-    </div>
-  );
-}
-
-function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-7xl px-6 ${className}`}>{children}</div>
-}
-
-function Section({ id, children, className = "" }: { id?: string, children: React.ReactNode, className?: string }) {
-  return (
-    <section id={id} className={`py-20 md:py-32 relative overflow-hidden ${className}`}>
-      {children}
-    </section>
-  )
-}
-
-function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: any, title: string, desc: string, delay?: number }) {
-  return (
-    <Reveal delay={delay} className="h-full" width="100%">
-      <div className="group relative h-full overflow-hidden rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm transition-all hover:shadow-xl hover:border-sky-200/50">
-        <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-600 transition-colors group-hover:bg-sky-500 group-hover:text-white">
-          <Icon size={24} />
-        </div>
-        <h3 className="mb-3 text-xl font-bold text-slate-900">{title}</h3>
-        <p className="text-slate-600 leading-relaxed">{desc}</p>
-      </div>
-    </Reveal>
-  )
-}
+import { Reveal, AnimatedImageFrame, Container, Section, FeatureCard } from "./components/ui-kit";
 
 // ==============================================================================
 // 2. VIEW: IJA DRONES (O SOFTWARE/SaaS) - COMPLETO
 // ==============================================================================
 
-function IjaDronesView({ onBack }: { onBack: () => void }) {
+function IjaDronesView({ onBack, onNavigateToAbout }: { onBack: () => void, onNavigateToAbout: () => void }) {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [state, handleSubmit] = useForm("meeeqdzk");
@@ -142,8 +70,14 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
                     </a>
                 </div>
                 <div className="hidden md:flex items-center gap-8">
-                    <a href="#" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Ínicio</a>
+                    <a href="#" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Início</a>
                     <a href="#sistema-ija" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Sistema</a>
+                    <button 
+                        onClick={onNavigateToAbout} 
+                        className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+                    >
+                        Sobre o Produto
+                    </button>
                     <a href="#beneficios-ija" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Recursos</a>
                     <a href="#contato-ija" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Contato</a>
                     
@@ -573,7 +507,15 @@ function IjaDronesView({ onBack }: { onBack: () => void }) {
 // 3. VIEW: OCEANO AZUL (HOME INSTITUCIONAL)
 // ==============================================================================
 
-function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void }) {
+function OceanoAzulView({ 
+  onNavigateToSystem, 
+  onNavigateToAboutOceano, 
+  onNavigateToAboutIJA 
+}: { 
+  onNavigateToSystem: () => void, 
+  onNavigateToAboutOceano: () => void,
+  onNavigateToAboutIJA: () => void 
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [state, handleSubmit] = useForm("meeeqdzk");
@@ -612,6 +554,9 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
                 </div>
                 <div className="hidden md:flex items-center gap-8">
                     <a href="#inicio" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Início</a>
+                    <button onClick={onNavigateToAboutOceano} className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                        Sobre Nós
+                    </button>
                     <a href="#servicos" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Serviços</a>
                     <a href="#beneficios" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Benefícios</a>
                     <a href="#contato-oceano" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Contato</a>
@@ -872,7 +817,8 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
               </div>
           </Container>
       </section>
-
+      
+      {/* FOOTER OCEANO AZUL */}
       <footer className="bg-[#0f172a] text-slate-300 pt-12 pb-8 border-t border-slate-800">
         <Container>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-12 items-start">
@@ -901,45 +847,76 @@ function OceanoAzulView({ onNavigateToSystem }: { onNavigateToSystem: () => void
   )
 }
 
+
+
 // ==============================================================================
-// 4. COMPONENTE PRINCIPAL (CONTROLADOR)
+// 4. COMPONENTE PRINCIPAL (CONTROLADOR ATUALIZADO)
+// ==============================================================================
+
+// ==============================================================================
+// 7. CONTROLADOR (FINAL DO ARQUIVO)
+// ==============================================================================
+
+// ==============================================================================
+// 7. COMPONENTE PRINCIPAL (CONTROLADOR FINAL)
 // ==============================================================================
 
 export default function Page() {
-  const [currentView, setCurrentView] = useState<'home' | 'system'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'system' | 'about_oceano' | 'product_ija'>('home');
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
       <AnimatePresence mode="wait">
-        {isLoading && (
-           <Preloader onComplete={() => setIsLoading(false)} />
-        )}
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
-      <div style={{ 
-          height: isLoading ? '100vh' : 'auto', 
-          overflow: isLoading ? 'hidden' : 'visible' 
-      }}>
-          
+      <div style={{ height: isLoading ? '100vh' : 'auto', overflow: isLoading ? 'hidden' : 'visible' }}>
         <AnimatePresence mode="wait">
+          
+          {/* --- TELA 1: HOME --- */}
+          {/* Aqui é onde o usuário acessa o "Sobre a Oceano Azul" */}
           {currentView === 'home' ? (
-            <motion.div 
-                key="home"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            >
-                <OceanoAzulView onNavigateToSystem={() => setCurrentView('system')} />
+            <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <OceanoAzulView 
+                    onNavigateToSystem={() => setCurrentView('system')} 
+                    // Link 1: Vai para a Empresa (Institucional)
+                    onNavigateToAboutOceano={() => setCurrentView('about_oceano')} 
+                    // Link 2: Vai para o Produto (IJA)
+                    onNavigateToAboutIJA={() => setCurrentView('product_ija')}     
+                />
             </motion.div>
-          ) : (
-            <motion.div 
-                key="system"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            >
-                <IjaDronesView onBack={() => setCurrentView('home')} />
+          ) 
+          
+          /* --- TELA 2: SISTEMA --- */
+          : currentView === 'system' ? (
+            <motion.div key="system" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <IjaDronesView 
+                    onBack={() => setCurrentView('home')} 
+                    // Link Interno: Vai para o Produto (IJA) como você pediu
+                    onNavigateToAbout={() => setCurrentView('product_ija')}
+                />
+            </motion.div>
+          ) 
+          
+          /* --- TELA 3: SOBRE A EMPRESA (Oceano Azul) --- */
+          : currentView === 'about_oceano' ? (
+            <motion.div key="about_oceano" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <OceanoAzulAboutView 
+                    onBack={() => setCurrentView('home')} 
+                    onNavigateToSystem={() => setCurrentView('system')}
+                />
+            </motion.div>
+          ) 
+          
+          /* --- TELA 4: SOBRE O PRODUTO (IJA Drones) --- */
+          : (
+            <motion.div key="product_ija" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <IJADronesProductView onBack={() => setCurrentView('home')} />
             </motion.div>
           )}
-        </AnimatePresence>
 
+        </AnimatePresence>
       </div>
     </>
   )
