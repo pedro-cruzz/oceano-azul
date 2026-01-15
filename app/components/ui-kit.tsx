@@ -57,7 +57,7 @@ export function AnimatedImageFrame({
           {children}
         </div>
       </motion.div>
-      
+
       {/* Sombra leve que some ao passar o mouse */}
       <div className="pointer-events-none absolute inset-0 bg-black/10 transition-opacity duration-500 group-hover:opacity-0"></div>
     </div>
@@ -66,23 +66,54 @@ export function AnimatedImageFrame({
 
 // --- 3. CONTAINER (MANTIDO) ---
 // Essencial para o layout não quebrar nas laterais
-export function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-7xl px-6 ${className}`}>{children}</div>
+export function Container({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`mx-auto w-full max-w-7xl px-6 ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 // --- 4. SECTION (MANTIDO) ---
 // Base para o espaçamento das seções
-export function Section({ id, children, className = "" }: { id?: string, children: React.ReactNode, className?: string }) {
+export function Section({
+  id,
+  children,
+  className = "",
+}: {
+  id?: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <section id={id} className={`py-20 md:py-32 relative overflow-hidden ${className}`}>
+    <section
+      id={id}
+      className={`py-20 md:py-32 relative overflow-hidden ${className}`}
+    >
       {children}
     </section>
-  )
+  );
 }
 
 // --- 5. FEATURE CARD (MANTIDO) ---
 // Usado na seção de benefícios
-export function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: any, title: string, desc: string, delay?: number }) {
+export function FeatureCard({
+  icon: Icon,
+  title,
+  desc,
+  delay = 0,
+}: {
+  icon: any;
+  title: string;
+  desc: string;
+  delay?: number;
+}) {
   return (
     <Reveal delay={delay} className="h-full" width="100%">
       <div className="group relative h-full overflow-hidden rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm transition-all hover:shadow-xl hover:border-sky-200/50">
@@ -93,5 +124,5 @@ export function FeatureCard({ icon: Icon, title, desc, delay = 0 }: { icon: any,
         <p className="text-slate-600 leading-relaxed">{desc}</p>
       </div>
     </Reveal>
-  )
+  );
 }
